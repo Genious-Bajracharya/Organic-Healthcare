@@ -13,7 +13,7 @@ const HomePage = () => {
     <div className="home-page">
       <div className="hero-section">
         <img
-          src="https://imgs.search.brave.com/dVAThiCFkFgUGFKSeDWLuZqNMx55bHHEvFeHONoXKF8/rs:fit:1200:1080:1/g:ce/aHR0cHM6Ly93YWxs/cGFwZXJjYXZlLmNv/bS93cC93cDYwNDA5/NTYucG5n"
+          src="https://imgs.search.brave.com/6Kb_PGu9clwnlIwKu377XAAPqb8XnYZwQHGAjTLKw1A/rs:fit:759:225:1/g:ce/aHR0cHM6Ly90c2U0/Lm1tLmJpbmcubmV0/L3RoP2lkPU9JUC43/c3ZsWXppZ1hvR3Bq/clV2UkNRQmlRSGFF/byZwaWQ9QXBp"
           alt="hero"
         />
         <div className="search-container">
@@ -24,7 +24,9 @@ const HomePage = () => {
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
             />
-            <button type="submit">Search</button>
+            <button className="search" type="submit">
+              Search
+            </button>
           </form>
         </div>
       </div>

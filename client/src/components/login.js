@@ -74,11 +74,11 @@ const Login = () => {
           <div className="overlay-panel overlay-right">
             <h1>Welcome To Organic Healthcare!</h1>
             <p>Dont have an account?</p>
-            <button className="ghost" id="signUp">
-              <a className="ghost" href="/register">
+            <a className="ghost" href="/register">
+              <button className="ghost" id="signUp">
                 Register
-              </a>
-            </button>
+              </button>
+            </a>
           </div>
         </div>
       </div>
