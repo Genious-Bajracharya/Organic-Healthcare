@@ -5,10 +5,12 @@ import Register from "./components/register";
 import Forgot from "./components/forgot";
 import Otp from "./components/otp";
 import Reset from "./components/reset";
+import Navbar from "./components/navbar";
 
 function App() {
   return (
     <BrowserRouter>
+      <Navbar></Navbar>
       <Routes>
         <Route exact path="/" element={<Login />} />
         <Route exact path="/register" element={<Register />} />

@@ -1,71 +1,58 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-import React, { useState, useEffect } from "react";
-import axios from "axios";
-// import jwt_decode from "jwt-decode";
-import { useNavigate } from "react-router-dom";
+import React, { useState } from "react";
+import "../css/dashboard.css";
 
-const Dashboard = () => {
-  //   const [name, setName] = useState("");
-  //   const [token, setToken] = useState("");
-  //   const [expire, setExpire] = useState("");
-  //   const [users, setUsers] = useState([]);
-  //   // const history = useHistory();
-  //   const navigate = useNavigate();
+const HomePage = () => {
+  const [searchTerm, setSearchTerm] = useState("");
 
-  //   useEffect(() => {
-  //     refreshToken();
-  //     getUsers();
-  //   }, []);
-
-  //   const refreshToken = async () => {
-  //     try {
-  //       const response = await axios.get("http://localhost:5000/token");
-  //       setToken(response.data.accessToken);
-  //       const decoded = jwt_decode(response.data.accessToken);
-  //       setName(decoded.name);
-  //       setExpire(decoded.exp);
-  //     } catch (error) {
-  //       if (error.response) {
-  //         // history.push("/");
-  //         navigate("/");
-  //       }
-  //     }
-  //   };
-
-  //   const axiosJWT = axios.create();
-
-  //   axiosJWT.interceptors.request.use(
-  //     async (config) => {
-  //       const currentDate = new Date();
-  //       if (expire * 1000 < currentDate.getTime()) {
-  //         const response = await axios.get("http://localhost:5000/token");
-  //         config.headers.Authorization = `Bearer ${response.data.accessToken}`;
-  //         setToken(response.data.accessToken);
-  //         const decoded = jwt_decode(response.data.accessToken);
-  //         setName(decoded.name);
-  //         setExpire(decoded.exp);
-  //       }
-  //       return config;
-  //     },
-  //     (error) => {
-  //       return Promise.reject(error);
-  //     }
-  //   );
-
-  //   const getUsers = async () => {
-  //     const response = await axiosJWT.get("http://localhost:5000/users", {
-  //       headers: {
-  //         Authorization: `Bearer ${token}`,
-  //       },
-  //     });
-  //     setUsers(response.data);
-  //   };
+  const handleSearch = (event) => {
+    event.preventDefault();
+    // Perform search with searchTerm
+  };
 
   return (
-    <div className="container mt-5">
-      <h1>Welcome </h1>
+    <div className="home-page">
+      <div className="hero-section">
+        <img
+          src="https://imgs.search.brave.com/dVAThiCFkFgUGFKSeDWLuZqNMx55bHHEvFeHONoXKF8/rs:fit:1200:1080:1/g:ce/aHR0cHM6Ly93YWxs/cGFwZXJjYXZlLmNv/bS93cC93cDYwNDA5/NTYucG5n"
+          alt="hero"
+        />
+        <div className="search-container">
+          <form onSubmit={handleSearch}>
+            <input
+              type="text"
+              placeholder="Search products"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+            />
+            <button type="submit">Search</button>
+          </form>
+        </div>
+      </div>
+      <div className="products-section">
+        <h2>Popular Products</h2>
+        <div className="products-container">
+          <div className="product-card">
+            <img src="https://via.placeholder.com/200x200" alt="product" />
+            <h3>Product 1</h3>
+            <p>$10.99</p>
+            <button>Add to Cart</button>
+          </div>
+          <div className="product-card">
+            <img src="https://via.placeholder.com/200x200" alt="product" />
+            <h3>Product 2</h3>
+            <p>$19.99</p>
+            <button>Add to Cart</button>
+          </div>
+          <div className="product-card">
+            <img src="https://via.placeholder.com/200x200" alt="product" />
+            <h3>Product 3</h3>
+            <p>$29.99</p>
+            <button>Add to Cart</button>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };
 
-export default Dashboard;
+export default HomePage;

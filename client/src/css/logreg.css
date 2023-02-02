@@ -7,8 +7,8 @@
 body {
 	background: #9d73c7;
 	display: flex;
-	justify-content: center;
-	align-items: center;
+	/* justify-content: center;
+	align-items: center; */
 	flex-direction: column;
 	font-family: 'Montserrat', sans-serif;
 	height: 100vh;
@@ -108,11 +108,16 @@ input {
 	border-radius: 10px;
   	box-shadow: 0 14px 28px rgba(0,0,0,0.25), 
 			0 10px 10px rgba(0,0,0,0.22);
+			display: flex; 
+	justify-content: center;
+	align-items: center;
 	position: relative;
 	overflow: hidden;
 	width: 768px;
 	max-width: 100%;
 	min-height: 480px;
+	margin-top: 150px;
+	margin-left:350px;
 }
 
 .form-container {

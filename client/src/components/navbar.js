@@ -1,59 +1,34 @@
-import React from "react";
-import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import React, { useState } from "react";
+import "../css/bar.css";
 
 const Navbar = () => {
-  // const history = useHistory();
-  const navigate = useNavigate();
+  const [isOpen, setIsOpen] = useState(false);
 
-  const Logout = async () => {
-    try {
-      await axios.delete("http://localhost:3001/logout");
-      navigate("/");
-    } catch (error) {
-      console.log(error);
-    }
+  const toggleOpen = () => {
+    setIsOpen(!isOpen);
   };
 
   return (
-    <nav
-      className="navbar is-light"
-      role="navigation"
-      aria-label="main navigation"
-    >
-      <div className="container">
-        <div className="navbar-brand">
-          <a
-            href="/"
-            role="button"
-            className="navbar-burger burger"
-            aria-label="menu"
-            aria-expanded="false"
-            data-target="navbarBasicExample"
-          >
-            <span aria-hidden="true"></span>
-            <span aria-hidden="true"></span>
-            <span aria-hidden="true"></span>
-          </a>
+    <nav className="navbar">
+      <div className="navbar-container">
+        <div className="navbar-logo">Organic Healthcare</div>
+        <div className="navbar-menu-icon" onClick={toggleOpen}>
+          <i className={isOpen ? "fas fa-times" : "fas fa-bars"} />
         </div>
-
-        <div id="navbarBasicExample" className="navbar-menu">
-          <div className="navbar-start">
-            <a href="/" className="navbar-item">
-              Home
-            </a>
-          </div>
-
-          <div className="navbar-end">
-            <div className="navbar-item">
-              <div className="buttons">
-                <button onClick={Logout} className="button is-light">
-                  Log Out
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
+        <ul className={isOpen ? "navbar-menu show" : "navbar-menu"}>
+          <li className="navbar-menu-item">
+            <a href="/dashboard">Home</a>
+          </li>
+          <li className="navbar-menu-item">
+            <a href="#">About</a>
+          </li>
+          <li className="navbar-menu-item">
+            <a href="#">Categories</a>
+          </li>
+          <li className="navbar-menu-item">
+            <a href="#">Contact</a>
+          </li>
+        </ul>
       </div>
     </nav>
   );
