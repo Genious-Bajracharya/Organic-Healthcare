@@ -75,8 +75,8 @@ app.post("/register", (req, res) => {
   const token = crypto.randomBytes(20).toString("hex");
 
   con.query(
-    "INSERT INTO users (email, username, password, phone) VALUES (?, ?, ?, ?)",
-    [email, username, password, phone],
+    "INSERT INTO users (email, username, password, phone, token) VALUES (?, ?, ?, ?, ?)",
+    [email, username, password, phone, token],
     (err, result) => {
       if (result) {
         const mailOptions = {
@@ -275,6 +275,7 @@ app.get("/verify", (req, res) => {
             }
             // show a success message
             res.send("Your email address has been verified.");
+            // res.redirect("http://localhost:3000/login");
           }
         );
       } else {
@@ -283,6 +284,18 @@ app.get("/verify", (req, res) => {
       }
     }
   );
+});
+
+app.get("/products", (req, res) => {
+  const query = "SELECT * FROM products";
+  db.query(query, (error, results) => {
+    if (error) {
+      console.error("Error fetching products: ", error.message);
+      res.sendStatus(500);
+    } else {
+      res.json(results);
+    }
+  });
 });
 
 app.listen(3001, () => {
