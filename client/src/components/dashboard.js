@@ -1,13 +1,30 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+
+import axios from "axios";
 import "../css/dashboard.css";
 
 const HomePage = () => {
   const [searchTerm, setSearchTerm] = useState("");
+  const [products, setProducts] = useState([]);
+  const [image, setImage] = useState(null);
+  const [error, setError] = useState(null);
 
   const handleSearch = (event) => {
     event.preventDefault();
     // Perform search with searchTerm
   };
+
+  useEffect(() => {
+    axios
+      .get("http://localhost:3001/products")
+      .then((response) => {
+        setProducts(response.data);
+      })
+      .catch((error) => {
+        setError(error);
+      });
+  }, []);
 
   return (
     <div className="home-page">
@@ -33,24 +50,19 @@ const HomePage = () => {
       <div className="products-section">
         <h2>Popular Products</h2>
         <div className="products-container">
-          <div className="product-card">
-            <img src="https://via.placeholder.com/200x200" alt="product" />
-            <h3>Product 1</h3>
-            <p>$10.99</p>
-            <button>Add to Cart</button>
-          </div>
-          <div className="product-card">
-            <img src="https://via.placeholder.com/200x200" alt="product" />
-            <h3>Product 2</h3>
-            <p>$19.99</p>
-            <button>Add to Cart</button>
-          </div>
-          <div className="product-card">
-            <img src="https://via.placeholder.com/200x200" alt="product" />
-            <h3>Product 3</h3>
-            <p>$29.99</p>
-            <button>Add to Cart</button>
-          </div>
+          {products.map((product) => (
+            <Link to={`/product/${product.id}`}>
+              <div className="product-card" key={product.id}>
+                <img
+                  src="https://images.pexels.com/photos/102104/pexels-photo-102104.jpeg?auto=compress&cs=tinysrgb&w=600"
+                  alt="product"
+                />
+                <h3>{product.Name}</h3>
+                <p>RS {product.price}</p>
+                <button>Add to Cart</button>
+              </div>
+            </Link>
+          ))}
         </div>
       </div>
     </div>

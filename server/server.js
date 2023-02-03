@@ -288,7 +288,7 @@ app.get("/verify", (req, res) => {
 
 app.get("/products", (req, res) => {
   const query = "SELECT * FROM products";
-  db.query(query, (error, results) => {
+  con.query(query, (error, results) => {
     if (error) {
       console.error("Error fetching products: ", error.message);
       res.sendStatus(500);
