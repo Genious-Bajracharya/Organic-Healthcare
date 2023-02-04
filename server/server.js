@@ -286,6 +286,7 @@ app.get("/verify", (req, res) => {
   );
 });
 
+//Product
 app.get("/products", (req, res) => {
   const query = "SELECT * FROM products";
   con.query(query, (error, results) => {
@@ -296,6 +297,27 @@ app.get("/products", (req, res) => {
       res.json(results);
     }
   });
+});
+
+app.get("/products/:id", (req, res) => {
+  const productId = req.params.id;
+
+  con.query(
+    `SELECT * FROM products WHERE id = ${productId}`,
+    (error, results) => {
+      if (error) {
+        return res.status(500).send(error);
+      }
+
+      const product = results[0];
+
+      if (!product) {
+        return res.status(404).send("Product not found");
+      }
+
+      res.send(product);
+    }
+  );
 });
 
 app.listen(3001, () => {

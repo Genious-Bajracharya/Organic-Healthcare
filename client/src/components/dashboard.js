@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import axios from "axios";
 import "../css/dashboard.css";
 
 const HomePage = () => {
+  const navigate = useNavigate();
   const [searchTerm, setSearchTerm] = useState("");
   const [products, setProducts] = useState([]);
   const [image, setImage] = useState(null);
@@ -26,13 +27,14 @@ const HomePage = () => {
       });
   }, []);
 
+  const handleClick = (product) => {
+    navigate("/product");
+  };
+
   return (
     <div className="home-page">
       <div className="hero-section">
-        <img
-          src="https://imgs.search.brave.com/6Kb_PGu9clwnlIwKu377XAAPqb8XnYZwQHGAjTLKw1A/rs:fit:759:225:1/g:ce/aHR0cHM6Ly90c2U0/Lm1tLmJpbmcubmV0/L3RoP2lkPU9JUC43/c3ZsWXppZ1hvR3Bq/clV2UkNRQmlRSGFF/byZwaWQ9QXBp"
-          alt="hero"
-        />
+        <img src={require("../image/thumb.png")} alt="hero" />
         <div className="search-container">
           <form onSubmit={handleSearch}>
             <input
@@ -47,8 +49,11 @@ const HomePage = () => {
           </form>
         </div>
       </div>
+      <div className="new">
+        <h2>New Products</h2>
+      </div>
+
       <div className="products-section">
-        <h2>Popular Products</h2>
         <div className="products-container">
           {products.map((product) => (
             <Link to={`/product/${product.id}`}>

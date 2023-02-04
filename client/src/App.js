@@ -6,6 +6,7 @@ import Forgot from "./components/forgot";
 import Otp from "./components/otp";
 import Reset from "./components/reset";
 import Navbar from "./components/navbar";
+import Product from "./components/product";
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
         <Route exact path="/otp" element={<Otp />} />
         <Route exact path="/login" element={<Login />} />
         <Route exact path="/dashboard" element={<Dashboard />} />
+        <Route exact path="/product/:id" element={<Product />} />
       </Routes>
     </BrowserRouter>
   );
