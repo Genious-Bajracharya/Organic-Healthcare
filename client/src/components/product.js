@@ -19,11 +19,48 @@ const ProductDetail = () => {
   }, [id]);
 
   return (
-    <div className="product-detail">
-      <img src={product.image} alt={product.Name} />
-      <h2>{product.Name}</h2>
-      <p>Price: RS {product.price}</p>
-      <p>Description: {product.description}</p>
+    <div className="product-container">
+      <div className="single-product">
+        <div className="row">
+          <div className="col-6">
+            <div className="product-image">
+              <div className="product-image-main">
+                <img
+                  src={`${process.env.PUBLIC_URL}/images/${product.image}`}
+                  alt={product.Name}
+                  id="product-main-image"
+                />
+              </div>
+            </div>
+          </div>
+          <div className="col-6">
+            <div className="product">
+              <div className="product-title">
+                <h2>{product.Name}</h2>
+              </div>
+              <div className="product-price">
+                <span className="offer-price">RS{product.price}</span>
+              </div>
+
+              <div className="product-details">
+                <h3>Description</h3>
+                <p>{product.description}</p>
+              </div>
+
+              <span className="divider" />
+
+              <div className="product-btn-group">
+                <div className="button buy-now">
+                  <i className="bx bxs-zap" /> Buy Now
+                </div>
+                <div className="button add-cart">
+                  <i className="bx bxs-cart" /> Add to Cart
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };
