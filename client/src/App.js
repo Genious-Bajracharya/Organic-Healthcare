@@ -7,6 +7,8 @@ import Otp from "./components/otp";
 import Reset from "./components/reset";
 import Navbar from "./components/navbar";
 import Product from "./components/product";
+import Cart from "./components/cart";
+import Profile from "./components/profile";
 
 function App() {
   return (
@@ -21,6 +23,8 @@ function App() {
         <Route exact path="/login" element={<Login />} />
         <Route exact path="/dashboard" element={<Dashboard />} />
         <Route exact path="/product/:id" element={<Product />} />
+        <Route exact path="/cart" element={<Cart />} />
+        <Route exact path="/profile" element={<Profile />} />
       </Routes>
     </BrowserRouter>
   );

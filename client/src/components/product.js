@@ -48,14 +48,14 @@ const ProductDetail = () => {
               </div>
 
               <span className="divider" />
+            </div>
 
-              <div className="product-btn-group">
-                <div className="button buy-now">
-                  <i className="bx bxs-zap" /> Buy Now
-                </div>
-                <div className="button add-cart">
-                  <i className="bx bxs-cart" /> Add to Cart
-                </div>
+            <div className="product-btn-group">
+              <div className="button buy-now">
+                <i className="bx bxs-zap" /> Buy Now
+              </div>
+              <div className="button add-cart">
+                <i className="bx bxs-cart" /> Add to Cart
               </div>
             </div>
           </div>

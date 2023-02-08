@@ -10,6 +10,30 @@ const HomePage = () => {
   const [products, setProducts] = useState([]);
   const [image, setImage] = useState(null);
   const [error, setError] = useState(null);
+  const [cart, setCart] = useState([]);
+
+  const handleAddToCart = (product) => {
+    const addToCart = (product) => {
+      return {
+        type: "ADD_TO_CART",
+        payload: product,
+      };
+    };
+  };
+
+  const addToCart = async (product) => {
+    const productId = product.id;
+    const username = localStorage.getItem("username");
+    try {
+      const res = await axios.post("http://localhost:3001/cart", {
+        product,
+        username,
+      });
+      console.log(res.data.message);
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   const handleSearch = (event) => {
     event.preventDefault();
@@ -64,7 +88,29 @@ const HomePage = () => {
                 />
                 <h3>{product.Name}</h3>
                 <p>RS {product.price}</p>
-                <button>Add to Cart</button>
+                <button onClick={() => addToCart(product)}>Add to Cart</button>
+              </div>
+            </Link>
+          ))}
+        </div>
+      </div>
+      <div className="new">
+        <h2>Herbs</h2>
+      </div>
+      <div className="products-section">
+        <div className="products-container">
+          {products.map((product) => (
+            <Link to={`/product/${product.id}`}>
+              <div className="product-card" key={product.id}>
+                <img
+                  src="https://images.pexels.com/photos/102104/pexels-photo-102104.jpeg?auto=compress&cs=tinysrgb&w=600"
+                  alt="product"
+                />
+                <h3>{product.Name}</h3>
+                <p>RS {product.price}</p>
+                <button onClick={() => handleAddToCart(product)}>
+                  Add to Cart
+                </button>
               </div>
             </Link>
           ))}

@@ -5,6 +5,7 @@ const session = require("express-session");
 const speakeasy = require("speakeasy");
 const secret = speakeasy.generateSecret({ length: 4 });
 const crypto = require("crypto");
+// const { localStorage } = require("node-localstorage");
 
 const app = express();
 app.use(
@@ -118,6 +119,7 @@ app.post("/login", (req, res) => {
         req.setEncoding({ err: err });
       } else {
         if (result.length > 0) {
+          req.session.username = username;
           con.query(
             "UPDATE users SET otp = ? WHERE username = ?",
             [token, username],
@@ -167,6 +169,16 @@ app.post("/login", (req, res) => {
       }
     }
   );
+});
+
+//profile
+app.get("/profile/:username", (req, res) => {
+  const username = req.params.username;
+  const query = "SELECT * FROM users WHERE username = ?";
+  con.query(query, [username], (err, result) => {
+    if (err) throw err;
+    res.json(result[0]);
+  });
 });
 
 app.post("/forgot", (req, res) => {
@@ -318,6 +330,38 @@ app.get("/products/:id", (req, res) => {
       res.send(product);
     }
   );
+});
+
+//cart
+app.post("/cart", (req, res) => {
+  //   const productId = req.body.productId;
+
+  //   const username = localStorage.getItem("username");
+  //   const query = `INSERT INTO cart (username, product_id) VALUES (${username}, ${productId})`;
+  //   con.query(query, (err, result) => {
+  //     if (err) throw err;
+  //     res.json({ message: "Product added to cart" });
+  //   });
+  // });
+  const { product, username } = req.body;
+  const query = `INSERT INTO cart (username, product_id) VALUES (${con.escape(
+    username
+  )}, ${con.escape(product.id)})`;
+  con.query(query, (err, result) => {
+    if (err) throw err;
+    res.json({ message: "Product added to cart" });
+  });
+});
+
+// Get cart items
+app.get("/cart/:username", (req, res) => {
+  const username = req.params.username;
+  const query =
+    "SELECT  products.Name, products.price, products.image FROM products INNER JOIN cart ON products.id = cart.product_id WHERE cart.username = ?";
+  con.query(query, [username], (err, result) => {
+    if (err) throw err;
+    res.json(result);
+  });
 });
 
 app.listen(3001, () => {
