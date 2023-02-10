@@ -18,6 +18,33 @@ const ProductDetail = () => {
       });
   }, [id]);
 
+  const addToCart = async (product) => {
+    const productId = product.id;
+    const username = localStorage.getItem("username");
+    try {
+      const res = await axios.post("http://localhost:3001/cart", {
+        product,
+        username,
+      });
+      console.log(res.data.message);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const handleBuy = async () => {
+    try {
+      await axios.post("http://localhost:3001/buy", {
+        username: localStorage.getItem("username"),
+        product_id: product.id,
+        price: product.price,
+      });
+      alert("Order placed successfully");
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <div className="product-container">
       <div className="single-product">
@@ -51,10 +78,13 @@ const ProductDetail = () => {
             </div>
 
             <div className="product-btn-group">
-              <div className="button buy-now">
+              <div className="button buy-now" onClick={handleBuy}>
                 <i className="bx bxs-zap" /> Buy Now
               </div>
-              <div className="button add-cart">
+              <div
+                className="button add-cart"
+                onClick={() => addToCart(product)}
+              >
                 <i className="bx bxs-cart" /> Add to Cart
               </div>
             </div>

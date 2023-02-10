@@ -28,9 +28,13 @@ const Login = () => {
         if (response.data.message) {
           setLoginStatus(response.data.message);
         } else {
-          setLoginStatus(response.data[0].email);
-          localStorage.setItem("username", username);
-          navigate("/otp");
+          if (response.data.role === "admin") {
+            navigate("/admin");
+          } else {
+            setLoginStatus(response.data[0].email);
+            localStorage.setItem("username", username);
+            navigate("/otp");
+          }
         }
       });
   };

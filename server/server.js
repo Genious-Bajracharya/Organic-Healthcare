@@ -119,49 +119,54 @@ app.post("/login", (req, res) => {
         req.setEncoding({ err: err });
       } else {
         if (result.length > 0) {
-          req.session.username = username;
-          con.query(
-            "UPDATE users SET otp = ? WHERE username = ?",
-            [token, username],
-            (err, result) => {
-              if (err) {
-                res.status(500).send({ message: " Error!" });
-              } else {
-                con.query(
-                  "SELECT phone FROM users WHERE username = ?",
-                  [username],
-                  (err, result) => {
-                    if (err) {
-                      res.status(500).send({ message: " Error!" });
-                    } else if (result.length > 0) {
-                      const phoneNumber = result[0].phone;
-                      const from = "Organic Healthcare";
-                      const to = `977${phoneNumber}`;
-                      const text = `Your OTP is: ${token}`;
+          if (result[0].role === "admin") {
+            req.session.role = "admin";
+            res.send({ role: result[0].role });
+          } else {
+            req.session.username = username;
+            con.query(
+              "UPDATE users SET otp = ? WHERE username = ?",
+              [token, username],
+              (err, result) => {
+                if (err) {
+                  res.status(500).send({ message: " Error!" });
+                } else {
+                  con.query(
+                    "SELECT phone FROM users WHERE username = ?",
+                    [username],
+                    (err, result) => {
+                      if (err) {
+                        res.status(500).send({ message: " Error!" });
+                      } else if (result.length > 0) {
+                        const phoneNumber = result[0].phone;
+                        const from = "Organic Healthcare";
+                        const to = `977${phoneNumber}`;
+                        const text = `Your OTP is: ${token}`;
 
-                      async function sendSMS() {
-                        await vonage.sms
-                          .send({ to, from, text })
-                          .then((resp) => {
-                            console.log("Message sent successfully");
-                            console.log(resp);
-                          })
-                          .catch((err) => {
-                            console.log(
-                              "There was an error sending the messages."
-                            );
-                            console.error(err);
-                          });
+                        async function sendSMS() {
+                          await vonage.sms
+                            .send({ to, from, text })
+                            .then((resp) => {
+                              console.log("Message sent successfully");
+                              console.log(resp);
+                            })
+                            .catch((err) => {
+                              console.log(
+                                "There was an error sending the messages."
+                              );
+                              console.error(err);
+                            });
+                        }
+
+                        sendSMS();
+                        res.send(result);
                       }
-
-                      sendSMS();
-                      res.send(result);
                     }
-                  }
-                );
+                  );
+                }
               }
-            }
-          );
+            );
+          }
           // res.send(result);
         } else {
           res.send({ message: "INCORRECT USERNAME OR PASSWORD!" });
@@ -179,6 +184,24 @@ app.get("/profile/:username", (req, res) => {
     if (err) throw err;
     res.json(result[0]);
   });
+});
+
+app.post("/editprofile", (req, res) => {
+  const email = req.body.email;
+  const username = req.body.username;
+  const password = req.body.password;
+  const phone = req.body.phone;
+  const username1 = req.body.username1;
+  const query =
+    "UPDATE users SET username = ?, email = ?, password = ?, phone = ? WHERE username = ?";
+  con.query(
+    query,
+    [username, email, password, phone, username1],
+    (err, result) => {
+      if (err) throw err;
+      res.json({ message: "User updated successfully" });
+    }
+  );
 });
 
 app.post("/forgot", (req, res) => {
@@ -361,6 +384,16 @@ app.get("/cart/:username", (req, res) => {
   con.query(query, [username], (err, result) => {
     if (err) throw err;
     res.json(result);
+  });
+});
+
+app.post("/buy", (req, res) => {
+  const { name, price, image } = req.body;
+  // Save the purchase to the database
+  const query = "INSERT INTO purchases (name, price, image) VALUES (?, ?, ?)";
+  con.query(query, [name, price, image], (err, result) => {
+    if (err) throw err;
+    res.json({ message: "Purchase successful" });
   });
 });
 

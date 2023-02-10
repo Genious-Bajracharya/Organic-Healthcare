@@ -18,6 +18,14 @@ const Cart = () => {
     fetchProducts();
   }, [username]);
 
+  const handleBuy = (product) => {
+    console.log(product);
+    axios
+      .post("http://localhost:3001/buy", product)
+      .then((res) => console.log(res.data))
+      .catch((err) => console.error(err));
+  };
+
   return (
     <div className="cart-page">
       <h2>Cart</h2>
@@ -37,6 +45,7 @@ const Cart = () => {
               <td>
                 <img src={product.image} alt={product.Name} />
               </td>
+              <button onClick={() => handleBuy(product)}>Buy</button>
             </tr>
           ))}
         </tbody>

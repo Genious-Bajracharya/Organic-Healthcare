@@ -26,7 +26,9 @@ const Profile = () => {
       <div>Email: {userData.email}</div>
       <div>Full Name: {userData.phone}</div>
       <div>Full Password: {userData.password}</div>
-      <button>Edit</button>
+      <a href="/editprofile">
+        <button>Edit</button>
+      </a>
     </div>
   );
 };
