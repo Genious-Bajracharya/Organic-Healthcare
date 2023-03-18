@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "../css/cart.css";
+import Navbar from "./navbar";
 
 const Cart = () => {
   const [products, setProducts] = useState([]);
+  const [quantities, setQuantities] = useState({});
   const username = localStorage.getItem("username");
 
   useEffect(() => {
@@ -18,6 +20,43 @@ const Cart = () => {
     fetchProducts();
   }, [username]);
 
+  const handleQuantityChange = (event, productId) => {
+    const newQuantities = { ...quantities };
+    newQuantities[productId] = parseInt(event.target.value);
+    setQuantities(newQuantities);
+  };
+
+  const calculateTotalPrice = () => {
+    let totalPrice = 0;
+    for (const product of products) {
+      const quantity = quantities[product.id] || 1;
+      totalPrice += product.price * quantity;
+    }
+    return totalPrice;
+  };
+
+  const handleCheckout = () => {
+    const items = [];
+    for (const product of products) {
+      const username = localStorage.getItem("username");
+      const quantity = quantities[product.id] || 1;
+      items.push({
+        id: product.Name,
+        quantity,
+        username,
+      });
+      // console.log(quantity);
+      alert("Purhcase successful");
+      console.log(username);
+      console.log(product);
+    }
+    const username = localStorage.getItem("username");
+    axios
+      .post("http://localhost:3001/order", { items, username })
+      .then((res) => console.log(res.data))
+      .catch((err) => console.error(err));
+  };
+
   const handleBuy = (product) => {
     console.log(product);
     axios
@@ -27,29 +66,39 @@ const Cart = () => {
   };
 
   return (
-    <div className="cart-page">
-      <h2>Cart</h2>
-      <table className="cart-table">
-        <thead>
-          <tr>
-            <th>Product</th>
-            <th>Price</th>
-            <th>Image</th>
-          </tr>
-        </thead>
-        <tbody>
-          {products.map((product) => (
-            <tr key={product.Name}>
-              <td>{product.Name}</td>
-              <td>{product.price}</td>
-              <td>
-                <img src={product.image} alt={product.Name} />
-              </td>
-              <button onClick={() => handleBuy(product)}>Buy</button>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+    <div>
+      <Navbar />
+      <div className="cart">
+        <h2 className="cart-title">My Cart</h2>
+        {products.map((product) => (
+          <div className="cart-item" key={product.id}>
+            <div className="cart-item-image">
+              <img
+                src={process.env.PUBLIC_URL + `/images/${product.image}`}
+                alt="Product 1"
+              />
+            </div>
+            <div className="cart-item-details">
+              <h3>{product.Name}</h3>
+              <p>Price: RS{product.price}</p>
+            </div>
+            <div className="cart-item-quantity">
+              <input
+                type="number"
+                min="1"
+                value={quantities[product.id] || 1}
+                onChange={(event) => handleQuantityChange(event, product.id)}
+              />
+            </div>
+          </div>
+        ))}
+
+        <div className="cart-total">
+          <span>Total:</span>
+          <strong>RS{calculateTotalPrice()}</strong>
+        </div>
+        <button onClick={handleCheckout}>Checkout</button>
+      </div>
     </div>
   );
 };

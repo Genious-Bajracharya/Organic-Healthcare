@@ -10,12 +10,16 @@ import Product from "./components/product";
 import Cart from "./components/cart";
 import Profile from "./components/profile";
 import EditProfile from "./components/editprofile";
-import Admin from "./components/admin";
+import Admin from "./components/admin/admin";
+import Category from "./components/category";
+import Allproduct from "./components/admin/Allproduct";
+import Updateproduct from "./components/admin/updateProduct";
+import Orders from "./components/admin/orders";
+import Stock from "./components/admin/stock";
 
 function App() {
   return (
     <BrowserRouter>
-      <Navbar></Navbar>
       <Routes>
         <Route exact path="/" element={<Login />} />
         <Route exact path="/register" element={<Register />} />
@@ -29,6 +33,11 @@ function App() {
         <Route exact path="/profile" element={<Profile />} />
         <Route exact path="/editprofile" element={<EditProfile />} />
         <Route exact path="/admin" element={<Admin />} />
+        <Route exact path="/category" element={<Category />} />
+        <Route exact path="/allproduct" element={<Allproduct />} />
+        <Route exact path="/updateproduct/:id" element={<Updateproduct />} />
+        <Route exact path="/orders" element={<Orders />} />
+        <Route exact path="/stock" element={<Stock />} />
       </Routes>
     </BrowserRouter>
   );

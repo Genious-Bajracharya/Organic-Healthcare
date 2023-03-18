@@ -29,10 +29,12 @@ const Login = () => {
           setLoginStatus(response.data.message);
         } else {
           if (response.data.role === "admin") {
+            localStorage.setItem("isAdmin", true);
             navigate("/admin");
           } else {
             setLoginStatus(response.data[0].email);
             localStorage.setItem("username", username);
+            localStorage.setItem("isLoggedIn", true);
             navigate("/otp");
           }
         }
@@ -40,50 +42,52 @@ const Login = () => {
   };
 
   return (
-    <div className="container" id="container">
-      <div className="form-container sign-in-container">
-        <form onSubmit={Auth} method="post">
-          <h1>Log in</h1>
-          <div className="space"></div>
-          <input
-            type="text"
-            name="username"
-            placeholder="Username"
-            id="username"
-            required
-            value={username}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-          <input
-            type="password"
-            name="password"
-            placeholder="Password"
-            id="password"
-            required
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-          <p className="error">{loginStatus}</p>
+    <div>
+      <div className="container" id="container">
+        <div className="form-container sign-in-container">
+          <form onSubmit={Auth} method="post">
+            <h1>Log in</h1>
+            <div className="space"></div>
+            <input
+              type="text"
+              name="username"
+              placeholder="Username"
+              id="username"
+              required
+              value={username}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+            <input
+              type="password"
+              name="password"
+              placeholder="Password"
+              id="password"
+              required
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+            <p className="error">{loginStatus}</p>
 
-          <a className="forgot" href="/forgot">
-            Forgot your password?
-          </a>
-          <br />
-          <button type="submit" value="login">
-            Log In
-          </button>
-        </form>
-      </div>
-      <div className="overlay-container">
-        <div className="overlay">
-          <div className="overlay-panel overlay-right">
-            <h1>Welcome To Organic Healthcare!</h1>
-            <p>Dont have an account?</p>
-            <a className="ghost" href="/register">
-              <button className="ghost" id="signUp">
-                Register
-              </button>
+            <a className="forgot" href="/forgot">
+              Forgot your password?
             </a>
+            <br />
+            <button type="submit" value="login">
+              Log In
+            </button>
+          </form>
+        </div>
+        <div className="overlay-container">
+          <div className="overlay">
+            <div className="overlay-panel overlay-right">
+              <h1>Welcome To Organic Healthcare!</h1>
+              <p>Dont have an account?</p>
+              <a className="ghost" href="/register">
+                <button className="ghost" id="signUp">
+                  Register
+                </button>
+              </a>
+            </div>
           </div>
         </div>
       </div>

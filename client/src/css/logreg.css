@@ -5,7 +5,7 @@
 }
 
 body {
-	background: #9d73c7;
+	background: #fefefa;
 	display: flex;
 	/* justify-content: center;
 	align-items: center; */
@@ -21,9 +21,7 @@ h1 {
 	
 }
 
-h2 {
-	
-}
+
 
 p {
 	font-size: 14px;
@@ -55,8 +53,8 @@ a.forgot{
 
 button {
 	border-radius: 20px;
-	border: 1px solid #9d73c7;
-	background-color: #9d73c7;
+	border: 1px solid #eae7ed;
+	background-color: #1e1a22;
 	color: #FFFFFF;
 	font-size: 12px;
 	font-weight: bold;
@@ -134,12 +132,7 @@ input {
 }
 
 
-.sign-up-container {
-	left: 0;
-	width: 50%;
-	opacity: 0;
-	z-index: 1;
-}
+
 
 
 
@@ -214,4 +207,8 @@ input {
 }
 
 
-
+@media (min-width: 769px) {
+	nav li {
+	  margin: 0 20px;
+	}
+  }

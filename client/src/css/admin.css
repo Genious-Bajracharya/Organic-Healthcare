@@ -1,0 +1,52 @@
+.main-content {
+    margin-left: 220px; /* the width of the sidebar plus some margin */
+    padding: 20px;
+    width: 80%; /* adjust to your liking */
+    background-color: #fff;
+  }
+
+  .main-content.h2 {
+    margin-left: 220px; /* the width of the sidebar plus some margin */
+    
+  }
+  button {
+    background-color: #0077cc;
+    color: #fff;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+  }
+  
+  button:hover {
+    background-color: #005ea6;
+  }
+
+  
+
+  table {
+    font-family: Arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+    margin-top: 30px;
+  }
+  
+  td, th {
+    border: 1px solid #ddd;
+    padding: 8px;
+  }
+  
+  th {
+    text-align: left;
+    background-color: #f2f2f2;
+  }
+  
+  tr:nth-child(even) {
+    background-color: #f2f2f2;
+  }
+  
+  tr:hover {
+    background-color: #ddd;
+  }
+  

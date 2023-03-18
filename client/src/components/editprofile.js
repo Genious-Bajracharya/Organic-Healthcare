@@ -47,7 +47,7 @@ const Register = () => {
     <div className="container" id="container">
       <div className="form-container sign-in-container">
         <form onSubmit={handlesubmit} className="box">
-          <h1>Register</h1>
+          <h1>Edit Profile</h1>
           <div className="space"></div>
 
           <input
@@ -89,19 +89,14 @@ const Register = () => {
 
           <br />
           <p className="has-text-centered">{profileStatus}</p>
-          <button type="submit">Register</button>
+          <button type="submit">Save</button>
         </form>
       </div>
       <div className="overlay-container">
         <div className="overlay">
           <div className="overlay-panel overlay-right">
-            <h1>Welcome To Organic Healthcare!</h1>
-            <p>Enter your personal details </p>
-            <button className="ghost" id="signUp">
-              <a className="ghost" href="/..">
-                Back to Login
-              </a>
-            </button>
+            <h1>Organic Healthcare!</h1>
+            <p>Edit your personal details </p>
           </div>
         </div>
       </div>

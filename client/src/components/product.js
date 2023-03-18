@@ -2,10 +2,12 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import "../css/productDes.css";
+import Navbar from "./navbar";
 
 const ProductDetail = () => {
-  let { id } = useParams();
+  const { id } = useParams();
   const [product, setProduct] = useState({});
+  const [quantity, setQuantity] = useState(1);
 
   useEffect(() => {
     axios
@@ -18,7 +20,7 @@ const ProductDetail = () => {
       });
   }, [id]);
 
-  const addToCart = async (product) => {
+  const handleAddToCart = async () => {
     const productId = product.id;
     const username = localStorage.getItem("username");
     try {
@@ -27,9 +29,15 @@ const ProductDetail = () => {
         username,
       });
       console.log(res.data.message);
+      alert("Added successfully");
     } catch (error) {
       console.error(error);
+      alert("Product already added");
     }
+  };
+
+  const handleQuantityChange = (e) => {
+    setQuantity(Number(e.target.value));
   };
 
   const handleBuy = async () => {
@@ -46,48 +54,22 @@ const ProductDetail = () => {
   };
 
   return (
-    <div className="product-container">
-      <div className="single-product">
-        <div className="row">
-          <div className="col-6">
-            <div className="product-image">
-              <div className="product-image-main">
-                <img
-                  src={`${process.env.PUBLIC_URL}/images/${product.image}`}
-                  alt={product.Name}
-                  id="product-main-image"
-                />
-              </div>
-            </div>
+    <div>
+      <Navbar />
+      <div className="product-page">
+        <div className="product-description">
+          <div className="product-images">
+            <img
+              src={process.env.PUBLIC_URL + `/images/${product.image}`}
+              alt={product.Name}
+            />
           </div>
-          <div className="col-6">
-            <div className="product">
-              <div className="product-title">
-                <h2>{product.Name}</h2>
-              </div>
-              <div className="product-price">
-                <span className="offer-price">RS{product.price}</span>
-              </div>
+          <div className="product-details">
+            <h2>{product.Name}</h2>
+            <p className="product-price">RS. {product.price}</p>
+            <p className="product-description-text">{product.description}</p>
 
-              <div className="product-details">
-                <h3>Description</h3>
-                <p>{product.description}</p>
-              </div>
-
-              <span className="divider" />
-            </div>
-
-            <div className="product-btn-group">
-              <div className="button buy-now" onClick={handleBuy}>
-                <i className="bx bxs-zap" /> Buy Now
-              </div>
-              <div
-                className="button add-cart"
-                onClick={() => addToCart(product)}
-              >
-                <i className="bx bxs-cart" /> Add to Cart
-              </div>
-            </div>
+            <button onClick={() => handleAddToCart()}>Add to Cart</button>
           </div>
         </div>
       </div>

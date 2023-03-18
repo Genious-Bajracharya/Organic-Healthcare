@@ -158,7 +158,7 @@ app.post("/login", (req, res) => {
                             });
                         }
 
-                        sendSMS();
+                        // sendSMS();  Uncomment later*************************************************************************************
                         res.send(result);
                       }
                     }
@@ -174,6 +174,11 @@ app.post("/login", (req, res) => {
       }
     }
   );
+});
+
+app.post("/logout", (req, res) => {
+  req.session.destroy();
+  res.status(200).send({ message: "Logout successful" });
 });
 
 //profile
@@ -243,7 +248,7 @@ app.post("/forgot", (req, res) => {
 
         // res.send(result);
       } else {
-        res.send({ message: "Incorrect Email!" });
+        res.send({ message: "Incorrect Email address!" });
       }
     }
   });
@@ -261,11 +266,12 @@ app.post("/reset", (req, res) => {
         console.error(error);
         res.sendStatus(500);
         return;
+      } else {
+        res.send(result);
       }
-      res.send(result);
     });
   } else {
-    res.send({ message: "Passwords dont match" });
+    res.send({ message: "Code or Passwords dont match" });
   }
 });
 
@@ -275,7 +281,7 @@ app.post("/otp", (req, res) => {
   con.query(queryString, [otp], (error, results) => {
     if (error) {
       console.error(error);
-      res.sendStatus(500);
+      res.send({ message: "Incorrect OTP" });
     } else if (results.length > 0) {
       req.session.loggedIn = true;
       res.send(results);
@@ -334,6 +340,42 @@ app.get("/products", (req, res) => {
   });
 });
 
+app.get("/productsherb", (req, res) => {
+  const query = "SELECT * FROM products where type= ?";
+  con.query(query, ["herb"], (error, results) => {
+    if (error) {
+      console.error("Error fetching products: ", error.message);
+      res.sendStatus(500);
+    } else {
+      res.json(results);
+    }
+  });
+});
+
+app.get("/productsfruit", (req, res) => {
+  const query = "SELECT * FROM products where type= ?";
+  con.query(query, ["fruits"], (error, results) => {
+    if (error) {
+      console.error("Error fetching products: ", error.message);
+      res.sendStatus(500);
+    } else {
+      res.json(results);
+    }
+  });
+});
+
+app.get("/productsveg", (req, res) => {
+  const query = "SELECT * FROM products where type= ?";
+  con.query(query, ["vegetable"], (error, results) => {
+    if (error) {
+      console.error("Error fetching products: ", error.message);
+      res.sendStatus(500);
+    } else {
+      res.json(results);
+    }
+  });
+});
+
 app.get("/products/:id", (req, res) => {
   const productId = req.params.id;
 
@@ -371,7 +413,9 @@ app.post("/cart", (req, res) => {
     username
   )}, ${con.escape(product.id)})`;
   con.query(query, (err, result) => {
-    if (err) throw err;
+    if (err) {
+      res.send("product already added");
+    }
     res.json({ message: "Product added to cart" });
   });
 });
@@ -395,6 +439,99 @@ app.post("/buy", (req, res) => {
     if (err) throw err;
     res.json({ message: "Purchase successful" });
   });
+});
+
+app.post("/order", async (req, res) => {
+  const { items } = req.body;
+  const { username } = req.body;
+  console.log(username);
+
+  try {
+    for (const item of items) {
+      con.query(
+        "INSERT INTO orders (product, quantity, username) VALUES (?, ?, ?)",
+        [item.id, item.quantity, username]
+      );
+      con.query("UPDATE products SET stock=stock-1 WHERE Name = ?", [item.id]);
+      // console.log(username);
+    }
+    con.query("DELETE FROM cart where username= ?", [username]);
+    res.status(200).send("Order placed successfully");
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Something went wrong");
+  }
+});
+
+//admin
+app.get("/users", (req, res) => {
+  const query = "SELECT * FROM users where role!=? ";
+  con.query(query, ["admin"], (error, results) => {
+    if (error) {
+      console.error("Error fetching users: ", error.message);
+      res.sendStatus(500);
+    } else {
+      res.json(results);
+    }
+  });
+});
+
+app.get("/orders", (req, res) => {
+  const query = "SELECT * FROM orders";
+  con.query(query, ["admin"], (error, results) => {
+    if (error) {
+      console.error("Error fetching users: ", error.message);
+      res.sendStatus(500);
+    } else {
+      res.json(results);
+    }
+  });
+});
+
+app.get("/stock", (req, res) => {
+  const query = "SELECT * FROM products ORDER BY stock ASC";
+  con.query(query, ["admin"], (error, results) => {
+    if (error) {
+      console.error("Error fetching users: ", error.message);
+      res.sendStatus(500);
+    } else {
+      res.json(results);
+    }
+  });
+});
+
+app.post("/updateproducts", (req, res) => {
+  const name = req.body.name;
+  const description = req.body.description;
+  const price = req.body.price;
+  const productId = req.body.productId;
+  const query =
+    "UPDATE products SET Name = ?, description = ?, price = ? WHERE id = ?";
+  con.query(query, [name, description, price, productId], (err, result) => {
+    if (err) throw err;
+    res.json({ message: "Product updated successfully" });
+  });
+});
+
+app.get("/updateproducts/:id", (req, res) => {
+  const productId = req.params.id;
+
+  con.query(
+    `SELECT * FROM products WHERE id = ${productId}`,
+    (error, results) => {
+      if (error) {
+        return res.status(500).send(error);
+      }
+
+      const product = results[0];
+
+      if (!product) {
+        return res.status(404).send("Product not found");
+      }
+
+      res.send(product);
+    }
+  );
 });
 
 app.listen(3001, () => {

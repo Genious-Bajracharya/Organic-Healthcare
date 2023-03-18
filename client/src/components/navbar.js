@@ -1,11 +1,40 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "../css/bar.css";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import { GrCart } from "react-icons/gr";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const toggleOpen = () => {
     setIsOpen(!isOpen);
+  };
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const loggedIn = localStorage.getItem("isLoggedIn");
+    if (loggedIn) {
+      setIsLoggedIn(true);
+    }
+  }, []);
+
+  const handleLogout = () => {
+    axios
+      .post(
+        "http://localhost:3001/logout",
+        {},
+        {
+          withCredentials: true,
+        }
+      )
+      .then(() => {
+        localStorage.removeItem("username");
+        localStorage.removeItem("isLoggedIn");
+        setIsLoggedIn(false);
+        navigate("/login");
+      });
   };
 
   return (
@@ -20,13 +49,22 @@ const Navbar = () => {
             <a href="/dashboard">Home</a>
           </li>
           <li className="navbar-menu-item">
-            <a href="/profile">About</a>
+            <a href="/profile">Profile</a>
           </li>
           <li className="navbar-menu-item">
-            <a href="#">Categories</a>
+            <a href="/category">Categories</a>
           </li>
+          {isLoggedIn ? (
+            <li className="navbar-menu-item">
+              <a href="/cart">Cart</a>
+            </li>
+          ) : (
+            <li className="navbar-menu-item">
+              <a onClick={() => alert("Please log in first")}>Cart</a>
+            </li>
+          )}
           <li className="navbar-menu-item">
-            <a href="/cart">Cart</a>
+            <a onClick={handleLogout}>Logout</a>
           </li>
         </ul>
       </div>

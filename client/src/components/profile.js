@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import Navbar from "./navbar";
 
 const Profile = () => {
   const [userData, setUserData] = useState({});
@@ -21,14 +22,17 @@ const Profile = () => {
 
   return (
     <div>
-      <h2>Profile</h2>
-      <div>Username: {userData.username}</div>
-      <div>Email: {userData.email}</div>
-      <div>Full Name: {userData.phone}</div>
-      <div>Full Password: {userData.password}</div>
-      <a href="/editprofile">
-        <button>Edit</button>
-      </a>
+      <Navbar />
+      <div>
+        <h2>Profile</h2>
+        <div>Username: {userData.username}</div>
+        <div>Email: {userData.email}</div>
+        <div>Phone number: {userData.phone}</div>
+        <div>Full Password: {userData.password}</div>
+        <a href="/editprofile">
+          <button>Edit</button>
+        </a>
+      </div>
     </div>
   );
 };

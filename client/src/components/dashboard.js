@@ -3,11 +3,15 @@ import { Link, useNavigate } from "react-router-dom";
 
 import axios from "axios";
 import "../css/dashboard.css";
+import Navbar from "./navbar";
 
 const HomePage = () => {
   const navigate = useNavigate();
   const [searchTerm, setSearchTerm] = useState("");
   const [products, setProducts] = useState([]);
+  const [productsherb, setProductsherb] = useState([]);
+  const [productsfruit, setProductsfruit] = useState([]);
+  const [productsveg, setProductsveg] = useState([]);
   const [image, setImage] = useState(null);
   const [error, setError] = useState(null);
   const [cart, setCart] = useState([]);
@@ -30,14 +34,16 @@ const HomePage = () => {
         username,
       });
       console.log(res.data.message);
+      alert("Added successfully");
     } catch (error) {
       console.error(error);
+      alert("Product already added");
     }
   };
 
   const handleSearch = (event) => {
     event.preventDefault();
-    // Perform search with searchTerm
+    // Perform search
   };
 
   useEffect(() => {
@@ -51,69 +57,152 @@ const HomePage = () => {
       });
   }, []);
 
+  useEffect(() => {
+    axios
+      .get("http://localhost:3001/productsherb")
+      .then((response) => {
+        setProductsherb(response.data);
+      })
+      .catch((error) => {
+        setError(error);
+      });
+  }, []);
+
+  useEffect(() => {
+    axios
+      .get("http://localhost:3001/productsfruit")
+      .then((response) => {
+        setProductsfruit(response.data);
+      })
+      .catch((error) => {
+        setError(error);
+      });
+  }, []);
+
+  useEffect(() => {
+    axios
+      .get("http://localhost:3001/productsveg")
+      .then((response) => {
+        setProductsveg(response.data);
+      })
+      .catch((error) => {
+        setError(error);
+      });
+  }, []);
+
   const handleClick = (product) => {
     navigate("/product");
   };
 
   return (
-    <div className="home-page">
-      <div className="hero-section">
-        <img src={require("../image/thumb.png")} alt="hero" />
-        <div className="search-container">
-          <form onSubmit={handleSearch}>
-            <input
-              type="text"
-              placeholder="Search products"
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-            />
-            <button className="search" type="submit">
-              Search
-            </button>
-          </form>
+    <div>
+      <Navbar />
+      <div className="home-page">
+        <section className="hero">
+          <div className="hero-content">
+            <h1>Choose a Better LifeStyle!</h1>
+            <form className="search-form" onSubmit={handleSearch}>
+              <input
+                type="text"
+                placeholder="Search..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+              />
+            </form>
+          </div>
+          <img
+            src="https://media.istockphoto.com/id/1340716614/photo/abstract-icon-representing-the-ecological-call-to-recycle-and-reuse-in-the-form-of-a-pond.jpg?b=1&s=170667a&w=0&k=20&c=Cq97-kZuEJT9GA4lwt3ptWWb5fpBAneYbUfyru_7h0I="
+            alt="Organic Products"
+          />
+        </section>
+        <div className="new">
+          <h2>New Products</h2>
         </div>
-      </div>
-      <div className="new">
-        <h2>New Products</h2>
-      </div>
 
-      <div className="products-section">
-        <div className="products-container">
-          {products.map((product) => (
-            <Link to={`/product/${product.id}`}>
-              <div className="product-card" key={product.id}>
-                <img
-                  src="https://images.pexels.com/photos/102104/pexels-photo-102104.jpeg?auto=compress&cs=tinysrgb&w=600"
-                  alt="product"
-                />
-                <h3>{product.Name}</h3>
-                <p>RS {product.price}</p>
-                <button onClick={() => addToCart(product)}>Add to Cart</button>
-              </div>
-            </Link>
-          ))}
+        <div className="products-section">
+          <div className="products-container">
+            {products.slice(0, 4).map((product) => (
+              <Link to={`/product/${product.id}`}>
+                <div className="product-card" key={product.id}>
+                  <img
+                    src={process.env.PUBLIC_URL + `/images/${product.image}`}
+                    alt={product.Name}
+                  />
+                  <h3>{product.Name}</h3>
+                  <p>RS. {product.price}</p>
+                  <button onClick={() => addToCart(product)}>
+                    Add to Cart
+                  </button>
+                </div>
+              </Link>
+            ))}
+          </div>
         </div>
-      </div>
-      <div className="new">
-        <h2>Herbs</h2>
-      </div>
-      <div className="products-section">
-        <div className="products-container">
-          {products.map((product) => (
-            <Link to={`/product/${product.id}`}>
-              <div className="product-card" key={product.id}>
-                <img
-                  src="https://images.pexels.com/photos/102104/pexels-photo-102104.jpeg?auto=compress&cs=tinysrgb&w=600"
-                  alt="product"
-                />
-                <h3>{product.Name}</h3>
-                <p>RS {product.price}</p>
-                <button onClick={() => handleAddToCart(product)}>
-                  Add to Cart
-                </button>
-              </div>
-            </Link>
-          ))}
+        <div className="new">
+          <h2>Herbs</h2>
+        </div>
+        <div className="products-section">
+          <div className="products-container">
+            {productsherb.slice(0, 4).map((product) => (
+              <Link to={`/product/${product.id}`}>
+                <div className="product-card" key={product.id}>
+                  <img
+                    src={process.env.PUBLIC_URL + `/images/${product.image}`}
+                    alt={product.Name}
+                  />
+                  <h3>{product.Name}</h3>
+                  <p>RS {product.price}</p>
+                  <button onClick={() => handleAddToCart(product)}>
+                    Add to Cart
+                  </button>
+                </div>
+              </Link>
+            ))}
+          </div>
+        </div>
+        <div className="new">
+          <h2>Fruits</h2>
+        </div>
+        <div className="products-section">
+          <div className="products-container">
+            {productsfruit.slice(0, 4).map((product) => (
+              <Link to={`/product/${product.id}`}>
+                <div className="product-card" key={product.id}>
+                  <img
+                    src={process.env.PUBLIC_URL + `/images/${product.image}`}
+                    alt={product.Name}
+                  />
+                  <h3>{product.Name}</h3>
+                  <p>RS {product.price}</p>
+                  <button onClick={() => handleAddToCart(product)}>
+                    Add to Cart
+                  </button>
+                </div>
+              </Link>
+            ))}
+          </div>
+        </div>
+        <div className="new">
+          <h2>Vegetable</h2>
+        </div>
+        <div className="products-section">
+          <div className="products-container">
+            {productsveg.slice(0, 4).map((product) => (
+              <Link to={`/product/${product.id}`}>
+                <div className="product-card" key={product.id}>
+                  <img
+                    src={process.env.PUBLIC_URL + `/images/${product.image}`}
+                    alt={product.Name}
+                  />
+                  <h3>{product.Name}</h3>
+                  <p>RS {product.price}</p>
+                  <button onClick={() => handleAddToCart(product)}>
+                    Add to Cart
+                  </button>
+                </div>
+              </Link>
+            ))}
+          </div>
         </div>
       </div>
     </div>
