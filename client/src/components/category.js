@@ -110,9 +110,6 @@ const HomePage = () => {
                   />
                   <h3>{product.Name}</h3>
                   <p>RS {product.price}</p>
-                  <button onClick={() => handleAddToCart(product)}>
-                    Add to Cart
-                  </button>
                 </div>
               </Link>
             ))}
@@ -132,9 +129,6 @@ const HomePage = () => {
                   />
                   <h3>{product.Name}</h3>
                   <p>RS {product.price}</p>
-                  <button onClick={() => handleAddToCart(product)}>
-                    Add to Cart
-                  </button>
                 </div>
               </Link>
             ))}
@@ -154,9 +148,6 @@ const HomePage = () => {
                   />
                   <h3>{product.Name}</h3>
                   <p>RS {product.price}</p>
-                  <button onClick={() => handleAddToCart(product)}>
-                    Add to Cart
-                  </button>
                 </div>
               </Link>
             ))}

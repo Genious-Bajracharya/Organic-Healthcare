@@ -12,9 +12,17 @@ const HomePage = () => {
   const [productsherb, setProductsherb] = useState([]);
   const [productsfruit, setProductsfruit] = useState([]);
   const [productsveg, setProductsveg] = useState([]);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [image, setImage] = useState(null);
   const [error, setError] = useState(null);
   const [cart, setCart] = useState([]);
+
+  useEffect(() => {
+    const loggedIn = localStorage.getItem("isLoggedIn");
+    if (loggedIn) {
+      setIsLoggedIn(true);
+    }
+  }, []);
 
   const handleAddToCart = (product) => {
     const addToCart = (product) => {
@@ -26,6 +34,10 @@ const HomePage = () => {
   };
 
   const addToCart = async (product) => {
+    if (isLoggedIn == false) {
+      alert("You need to log in to add products to your cart.");
+      return;
+    }
     const productId = product.id;
     const username = localStorage.getItem("username");
     try {
@@ -130,9 +142,6 @@ const HomePage = () => {
                   />
                   <h3>{product.Name}</h3>
                   <p>RS. {product.price}</p>
-                  <button onClick={() => addToCart(product)}>
-                    Add to Cart
-                  </button>
                 </div>
               </Link>
             ))}
@@ -152,9 +161,6 @@ const HomePage = () => {
                   />
                   <h3>{product.Name}</h3>
                   <p>RS {product.price}</p>
-                  <button onClick={() => handleAddToCart(product)}>
-                    Add to Cart
-                  </button>
                 </div>
               </Link>
             ))}
@@ -174,9 +180,6 @@ const HomePage = () => {
                   />
                   <h3>{product.Name}</h3>
                   <p>RS {product.price}</p>
-                  <button onClick={() => handleAddToCart(product)}>
-                    Add to Cart
-                  </button>
                 </div>
               </Link>
             ))}
@@ -196,9 +199,6 @@ const HomePage = () => {
                   />
                   <h3>{product.Name}</h3>
                   <p>RS {product.price}</p>
-                  <button onClick={() => handleAddToCart(product)}>
-                    Add to Cart
-                  </button>
                 </div>
               </Link>
             ))}

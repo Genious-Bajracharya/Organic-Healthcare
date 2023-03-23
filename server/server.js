@@ -534,6 +534,38 @@ app.get("/updateproducts/:id", (req, res) => {
   );
 });
 
+app.get("/addstock/:id", (req, res) => {
+  const productId = req.params.id;
+
+  con.query(
+    `SELECT * FROM products WHERE id = ${productId}`,
+    (error, results) => {
+      if (error) {
+        return res.status(500).send(error);
+      }
+
+      const product = results[0];
+
+      if (!product) {
+        return res.status(404).send("Product not found");
+      }
+
+      res.send(product);
+    }
+  );
+});
+
+app.post("/addstock", (req, res) => {
+  const addstock = req.body.addstock;
+
+  const productId = req.body.productId;
+  const query = "UPDATE products SET stock = stock + ? WHERE id = ?";
+  con.query(query, [addstock, productId], (err, result) => {
+    if (err) throw err;
+    res.json({ message: "Stock updated successfully" });
+  });
+});
+
 app.listen(3001, () => {
   console.log("running backend server");
 });

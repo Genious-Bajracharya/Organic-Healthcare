@@ -9,8 +9,8 @@
     margin-left: 220px; /* the width of the sidebar plus some margin */
     
   }
-  button {
-    background-color: #0077cc;
+  .main-content button {
+    background-color: #01090e;
     color: #fff;
     border: none;
     padding: 8px 16px;
@@ -19,7 +19,7 @@
     transition: background-color 0.2s ease-in-out;
   }
   
-  button:hover {
+  .button:hover {
     background-color: #005ea6;
   }
 

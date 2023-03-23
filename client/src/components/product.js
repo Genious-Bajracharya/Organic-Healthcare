@@ -8,6 +8,14 @@ const ProductDetail = () => {
   const { id } = useParams();
   const [product, setProduct] = useState({});
   const [quantity, setQuantity] = useState(1);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  useEffect(() => {
+    const loggedIn = localStorage.getItem("isLoggedIn");
+    if (loggedIn) {
+      setIsLoggedIn(true);
+    }
+  }, []);
 
   useEffect(() => {
     axios
@@ -21,6 +29,10 @@ const ProductDetail = () => {
   }, [id]);
 
   const handleAddToCart = async () => {
+    if (isLoggedIn == false) {
+      alert("You need to log in to add products to your cart.");
+      return;
+    }
     const productId = product.id;
     const username = localStorage.getItem("username");
     try {

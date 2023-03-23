@@ -46,7 +46,7 @@ const Cart = () => {
         username,
       });
       // console.log(quantity);
-      alert("Purhcase successful");
+
       console.log(username);
       console.log(product);
     }
@@ -55,6 +55,8 @@ const Cart = () => {
       .post("http://localhost:3001/order", { items, username })
       .then((res) => console.log(res.data))
       .catch((err) => console.error(err));
+    alert("Purhcase successful");
+    window.location.reload();
   };
 
   const handleBuy = (product) => {

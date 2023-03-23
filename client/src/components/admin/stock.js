@@ -5,7 +5,8 @@ import "../../css/admin.css";
 import { Link, useNavigate } from "react-router-dom";
 
 const Stock = () => {
-  const [stocks, setStock] = useState([]);
+  const [product, setStock] = useState([]);
+  const [stock, setStoc] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -21,8 +22,9 @@ const Stock = () => {
   }, []);
 
   const handleadd = (event) => {
-    event.preventDefault();
-    navigate(`/addstock/${stocks.id}`);
+    navigate(`/addstock/${product.id}`);
+    console.log(product.id);
+    console.log(stock.id);
   };
 
   return (
@@ -39,12 +41,14 @@ const Stock = () => {
           </tr>
         </thead>
         <tbody>
-          {stocks.map((stock) => (
+          {product.map((stock) => (
             <tr key={stock.id}>
               <td>{stock.Name}</td>
               <td>{stock.type}</td>
               <td>{stock.stock}</td>
-              <button onClick={() => handleadd()}>Add</button>
+              <button onClick={() => navigate(`/addstock/${stock.id}`)}>
+                Add
+              </button>
             </tr>
           ))}
         </tbody>

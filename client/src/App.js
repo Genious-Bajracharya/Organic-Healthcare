@@ -16,12 +16,13 @@ import Allproduct from "./components/admin/Allproduct";
 import Updateproduct from "./components/admin/updateProduct";
 import Orders from "./components/admin/orders";
 import Stock from "./components/admin/stock";
+import AddStock from "./components/admin/addStock";
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route exact path="/" element={<Login />} />
+        <Route exact path="/" element={<Dashboard />} />
         <Route exact path="/register" element={<Register />} />
         <Route exact path="/forgot" element={<Forgot />} />
         <Route exact path="/reset" element={<Reset />} />
@@ -38,6 +39,7 @@ function App() {
         <Route exact path="/updateproduct/:id" element={<Updateproduct />} />
         <Route exact path="/orders" element={<Orders />} />
         <Route exact path="/stock" element={<Stock />} />
+        <Route exact path="/addstock/:id" element={<AddStock />} />
       </Routes>
     </BrowserRouter>
   );
