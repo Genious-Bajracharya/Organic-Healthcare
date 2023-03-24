@@ -8,6 +8,7 @@ import Navbar from "./navbar";
 const HomePage = () => {
   const navigate = useNavigate();
   const [searchTerm, setSearchTerm] = useState("");
+  const [DisplayedProducts, setDisplayedProducts] = useState("");
   const [products, setProducts] = useState([]);
   const [productsherb, setProductsherb] = useState([]);
   const [productsfruit, setProductsfruit] = useState([]);
@@ -24,17 +25,8 @@ const HomePage = () => {
     }
   }, []);
 
-  const handleAddToCart = (product) => {
-    const addToCart = (product) => {
-      return {
-        type: "ADD_TO_CART",
-        payload: product,
-      };
-    };
-  };
-
   const addToCart = async (product) => {
-    if (isLoggedIn == false) {
+    if (isLoggedIn === false) {
       alert("You need to log in to add products to your cart.");
       return;
     }
@@ -53,9 +45,30 @@ const HomePage = () => {
     }
   };
 
+  // const handleSearch = async (event) => {
+  //   event.preventDefault();
+  //   // Perform search
+  //   // Get the search term from the input field
+  // const searchTerm = event.target.elements.searchTerm.value;
+
+  // try {
+  //   // Execute a database query to retrieve the products that match the search term
+  //   const results = await pool.query(
+  //     `SELECT * FROM health_problem WHERE Name LIKE '%${searchTerm}%'`
+  //   );
+
+  //   // Update the displayed products with the search results
+  //   setDisplayedProducts(results);
+  // } catch (error) {
+  //   console.error(error);
+  // }
+  // };
+
   const handleSearch = (event) => {
     event.preventDefault();
-    // Perform search
+    // const searchTerm = event.target.elements.searchTerm.value;
+    console.log(searchTerm);
+    navigate(`/search/${searchTerm}`);
   };
 
   useEffect(() => {

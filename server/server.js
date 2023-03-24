@@ -566,6 +566,27 @@ app.post("/addstock", (req, res) => {
   });
 });
 
+//search
+app.get("/search/:id", (req, res) => {
+  const searchTerm = req.params.id;
+  const query = `
+    SELECT p.*
+    FROM products p
+    JOIN health_problem h ON
+      h.solution1 LIKE CONCAT('%', p.Name, '%')
+      OR h.solution2 LIKE CONCAT('%', p.Name, '%')
+      OR h.solution3 LIKE CONCAT('%', p.Name, '%')
+      OR h.solution4 LIKE CONCAT('%', p.Name, '%')
+      OR h.solution5 LIKE CONCAT('%', p.Name, '%')
+    WHERE h.name LIKE '%${searchTerm}%'
+  `;
+  con.query(query, [searchTerm], (error, results) => {
+    if (error) throw error;
+    console.log(searchTerm);
+    res.json(results);
+  });
+});
+
 app.listen(3001, () => {
   console.log("running backend server");
 });

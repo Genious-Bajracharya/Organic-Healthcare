@@ -17,6 +17,7 @@ import Updateproduct from "./components/admin/updateProduct";
 import Orders from "./components/admin/orders";
 import Stock from "./components/admin/stock";
 import AddStock from "./components/admin/addStock";
+import Search from "./components/search";
 
 function App() {
   return (
@@ -40,6 +41,7 @@ function App() {
         <Route exact path="/orders" element={<Orders />} />
         <Route exact path="/stock" element={<Stock />} />
         <Route exact path="/addstock/:id" element={<AddStock />} />
+        <Route exact path="/search/:id" element={<Search />} />
       </Routes>
     </BrowserRouter>
   );
