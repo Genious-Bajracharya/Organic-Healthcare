@@ -582,6 +582,26 @@ app.post("/addstock", (req, res) => {
   });
 });
 
+app.post("/registeradmin", (req, res) => {
+  const email = req.body.email;
+  const username = req.body.username;
+  const password = req.body.password;
+  const phone = req.body.phone;
+  const token = crypto.randomBytes(20).toString("hex");
+
+  con.query(
+    "INSERT INTO users (email, username, password, phone, token, role) VALUES (?, ?, ?, ?, ?, ?)",
+    [email, username, password, phone, token, "admin"],
+    (err, result) => {
+      if (result) {
+        res.send(result);
+      } else {
+        res.send({ message: "Error" });
+      }
+    }
+  );
+});
+
 //search
 app.get("/search/:id", (req, res) => {
   const searchTerm = req.params.id;

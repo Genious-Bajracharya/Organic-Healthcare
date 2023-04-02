@@ -136,7 +136,7 @@ const HomePage = () => {
             </form>
           </div>
           <img
-            src="https://media.istockphoto.com/id/1340716614/photo/abstract-icon-representing-the-ecological-call-to-recycle-and-reuse-in-the-form-of-a-pond.jpg?b=1&s=170667a&w=0&k=20&c=Cq97-kZuEJT9GA4lwt3ptWWb5fpBAneYbUfyru_7h0I="
+            src="https://media.istockphoto.com/id/854725372/photo/healthy-food-clean-eating-selection.jpg?s=612x612&w=0&k=20&c=Ef1hlrgJnDdZvs05v6yKz1ajYZX_KaWJdR9vIVSxXP0="
             alt="Organic Products"
           />
         </section>

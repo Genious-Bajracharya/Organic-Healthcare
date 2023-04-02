@@ -45,6 +45,12 @@ const Sidebar = () => {
         <li>
           <Link to="/stock">Stock</Link>
         </li>
+        <li>
+          <Link to="/addadmin">Add Admin</Link>
+        </li>
+        <li>
+          <Link to="/addproduct">Add Product</Link>
+        </li>
 
         <li>
           <Link to="/login">Logout</Link>
