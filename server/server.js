@@ -408,15 +408,31 @@ app.post("/cart", (req, res) => {
   //     res.json({ message: "Product added to cart" });
   //   });
   // });
-  const { product, username } = req.body;
-  const query = `INSERT INTO cart (username, product_id) VALUES (${con.escape(
-    username
-  )}, ${con.escape(product.id)})`;
-  con.query(query, (err, result) => {
-    if (err) {
-      res.send("product already added");
+  const { product, username, quantity } = req.body;
+  const query = "SELECT * FROM cart WHERE product_id=? and username= ?;";
+  con.query(query, [product.id, username], (error, results) => {
+    if (error) {
+      // req.setEncoding({ err: error });
+      console.log(error);
+    } else if (results.length > 0) {
+      const query =
+        "UPDATE cart SET quantity = ? WHERE product_id = ? AND username=?";
+      con.query(query, [quantity, product.id, username], (err, result) => {
+        if (err) throw err;
+        res.json({ message: "Added successfully" });
+      });
+      // res.json(results);
+    } else {
+      const query1 = `INSERT INTO cart (username, product_id, quantity) VALUES (${con.escape(
+        username
+      )}, ${con.escape(product.id)},${con.escape(quantity)})`;
+      con.query(query1, (err, result) => {
+        if (err) {
+          res.send("product already added");
+        }
+        // res.json({ message: "Product added to cart" });
+      });
     }
-    res.json({ message: "Product added to cart" });
   });
 });
 

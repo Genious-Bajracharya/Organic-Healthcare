@@ -9,6 +9,7 @@ const ProductDetail = () => {
   const [product, setProduct] = useState({});
   const [quantity, setQuantity] = useState(1);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [stockStatus, setStockStatus] = useState("");
 
   useEffect(() => {
     const loggedIn = localStorage.getItem("isLoggedIn");
@@ -33,12 +34,14 @@ const ProductDetail = () => {
       alert("You need to log in to add products to your cart.");
       return;
     }
+    ///////////////////////////////////
     const productId = product.id;
     const username = localStorage.getItem("username");
     try {
       const res = await axios.post("http://localhost:3001/cart", {
         product,
         username,
+        quantity,
       });
       console.log(res.data.message);
       alert("Added successfully");
@@ -79,7 +82,18 @@ const ProductDetail = () => {
           <div className="product-details">
             <h2>{product.Name}</h2>
             <p className="product-price">RS. {product.price}</p>
+            <p>
+              In Stock: {stockStatus}
+              {product.stock}
+            </p>
             <p className="product-description-text">{product.description}</p>
+            <input
+              type="number"
+              id="quantity"
+              name="quantity"
+              min="1"
+              onChange={(e) => setQuantity(e.target.value)}
+            />
 
             <button onClick={() => handleAddToCart()}>Add to Cart</button>
           </div>
