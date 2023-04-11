@@ -76,8 +76,8 @@ const Cart = () => {
           <div className="cart-item" key={product.id}>
             <div className="cart-item-image">
               <img
-                src={process.env.PUBLIC_URL + `/images/${product.image}`}
-                alt="Product 1"
+                src={`data:image/jpeg;base64,${product.pic}`}
+                alt={product.Name}
               />
             </div>
             <div className="cart-item-details">

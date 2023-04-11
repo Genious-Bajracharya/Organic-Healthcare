@@ -5,6 +5,7 @@ const session = require("express-session");
 const speakeasy = require("speakeasy");
 const secret = speakeasy.generateSecret({ length: 4 });
 const crypto = require("crypto");
+const multer = require("multer");
 // const { localStorage } = require("node-localstorage");
 
 const app = express();
@@ -335,6 +336,15 @@ app.get("/products", (req, res) => {
       console.error("Error fetching products: ", error.message);
       res.sendStatus(500);
     } else {
+      results = results.map((product) => {
+        return {
+          ...product,
+          pic: product.pic
+            ? Buffer.from(product.pic, "binary").toString("base64")
+            : null,
+        };
+      });
+
       res.json(results);
     }
   });
@@ -347,6 +357,14 @@ app.get("/productsherb", (req, res) => {
       console.error("Error fetching products: ", error.message);
       res.sendStatus(500);
     } else {
+      results = results.map((product) => {
+        return {
+          ...product,
+          pic: product.pic
+            ? Buffer.from(product.pic, "binary").toString("base64")
+            : null,
+        };
+      });
       res.json(results);
     }
   });
@@ -359,6 +377,14 @@ app.get("/productsfruit", (req, res) => {
       console.error("Error fetching products: ", error.message);
       res.sendStatus(500);
     } else {
+      results = results.map((product) => {
+        return {
+          ...product,
+          pic: product.pic
+            ? Buffer.from(product.pic, "binary").toString("base64")
+            : null,
+        };
+      });
       res.json(results);
     }
   });
@@ -371,6 +397,14 @@ app.get("/productsveg", (req, res) => {
       console.error("Error fetching products: ", error.message);
       res.sendStatus(500);
     } else {
+      results = results.map((product) => {
+        return {
+          ...product,
+          pic: product.pic
+            ? Buffer.from(product.pic, "binary").toString("base64")
+            : null,
+        };
+      });
       res.json(results);
     }
   });
@@ -390,6 +424,10 @@ app.get("/products/:id", (req, res) => {
 
       if (!product) {
         return res.status(404).send("Product not found");
+      }
+
+      if (product.pic) {
+        product.pic = Buffer.from(product.pic, "binary").toString("base64");
       }
 
       res.send(product);
@@ -440,9 +478,15 @@ app.post("/cart", (req, res) => {
 app.get("/cart/:username", (req, res) => {
   const username = req.params.username;
   const query =
-    "SELECT  products.Name, products.price, products.image FROM products INNER JOIN cart ON products.id = cart.product_id WHERE cart.username = ?";
+    "SELECT  products.Name, products.price, products.pic FROM products INNER JOIN cart ON products.id = cart.product_id WHERE cart.username = ?";
   con.query(query, [username], (err, result) => {
     if (err) throw err;
+    result = result.map((product) => {
+      if (product.pic) {
+        product.pic = Buffer.from(product.pic, "binary").toString("base64");
+      }
+      return product;
+    });
     res.json(result);
   });
 });
@@ -525,6 +569,7 @@ app.post("/updateproducts", (req, res) => {
     "UPDATE products SET Name = ?, description = ?, price = ? WHERE id = ?";
   con.query(query, [name, description, price, productId], (err, result) => {
     if (err) throw err;
+
     res.json({ message: "Product updated successfully" });
   });
 });
@@ -543,6 +588,10 @@ app.get("/updateproducts/:id", (req, res) => {
 
       if (!product) {
         return res.status(404).send("Product not found");
+      }
+
+      if (product.pic) {
+        product.pic = Buffer.from(product.pic, "binary").toString("base64");
       }
 
       res.send(product);
@@ -564,6 +613,9 @@ app.get("/addstock/:id", (req, res) => {
 
       if (!product) {
         return res.status(404).send("Product not found");
+      }
+      if (product.pic) {
+        product.pic = Buffer.from(product.pic, "binary").toString("base64");
       }
 
       res.send(product);
@@ -592,6 +644,105 @@ app.post("/registeradmin", (req, res) => {
   con.query(
     "INSERT INTO users (email, username, password, phone, token, role) VALUES (?, ?, ?, ?, ?, ?)",
     [email, username, password, phone, token, "admin"],
+    (err, result) => {
+      if (result) {
+        res.send(result);
+      } else {
+        res.send({ message: "Error" });
+      }
+    }
+  );
+});
+
+//storage for images
+// const path = require("path");
+// const fileUpload = require("express-fileupload");
+// const fs = require("fs");
+// app.use(express.static("public"));
+// app.use(fileUpload());
+
+// const storage = multer.diskStorage({
+//   destination: function (req, file, cb) {
+//     cb(null, "./images");
+//   },
+//   filename: function (req, file, cb) {
+//     cb(null, file.originalname);
+//   },
+// });
+
+// const upload = multer({ storage: storage });
+// app.use("/images", express.static(path.join(__dirname, "images")));
+
+//add product
+// app.post("/addproduct", upload.single("image"), async (req, res) => {
+//   const name = req.body.name;
+//   const type = req.body.type;
+//   const price = req.body.price;
+//   const description = req.body.description;
+// const imagename = req.body.imagename;
+// const image = req.file;
+
+// const imagePath = path.join(__dirname, "../client/public/images", imagename);
+
+// let imageUrl;
+
+// const file = req.files.file;
+// const filePath = path.join(__dirname, "public", "images", file.name);
+
+// Check if there's an error in the file upload
+// fs.readFile(image.path, (err, data) => {
+//   if (err) {
+//     console.log(err);
+//     return res.status(500).send("Server Error");
+//   }
+//   fs.writeFile(imagePath, data, (err) => {
+//     if (err) {
+//       console.log(err);
+//       return res.status(500).send("Server Error");
+//     }
+
+//     // Send the response to the client with the image URL
+//     const imageUrl = `/public/images/${imagename}`;
+//     return res.status(200).send(imageUrl);
+//   });
+// });
+
+// file.mv(filePath, (err) => {
+//   if (err) {
+//     console.error(err);
+//     return res.status(500).send("Failed to upload file");
+//   }
+
+//   res.send("File uploaded successfully");
+// });
+
+//   con.query(
+//     "INSERT INTO products (name, price, description, type) VALUES (?, ?, ?, ?)",
+//     [name, price, description, type],
+//     (err, result) => {
+//       if (result) {
+//         res.send(result);
+//       } else {
+//         res.send({ message: "Error" });
+//       }
+//     }
+//   );
+// });
+
+//add product 2
+const storage = multer.memoryStorage();
+const upload = multer({ storage: storage });
+
+app.post("/addproduct", upload.single("image"), (req, res) => {
+  const name = req.body.name;
+  const type = req.body.type;
+  const price = req.body.price;
+  const description = req.body.description;
+  const image = req.file.buffer;
+
+  con.query(
+    "INSERT INTO products (name, price, description, type, pic) VALUES (?, ?, ?, ?, ?)",
+    [name, price, description, type, image],
     (err, result) => {
       if (result) {
         res.send(result);

@@ -48,7 +48,7 @@ const ProductDetail = () => {
         <div className="product-description">
           <div className="product-images">
             <img
-              src={process.env.PUBLIC_URL + `/images/${product.image}`}
+              src={`data:image/jpeg;base64,${product.pic}`}
               alt={product.Name}
             />
           </div>
