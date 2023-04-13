@@ -4,24 +4,6 @@ import "../../css/adminbar.css";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
-const handleLogout = () => {
-  axios
-    .post(
-      "http://localhost:3001/logout",
-      {},
-      {
-        withCredentials: true,
-      }
-    )
-    .then(() => {
-      const navigate = useNavigate();
-      localStorage.removeItem("username");
-      localStorage.removeItem("isLoggedIn");
-      // setIsLoggedIn(false);
-      navigate("/login");
-    });
-};
-
 const Sidebar = () => {
   return (
     <div className="sidebar">
@@ -40,7 +22,7 @@ const Sidebar = () => {
           <Link to="/allproduct">Products</Link>
         </li>
         <li>
-          <Link to="/login">Add Product</Link>
+          <Link to="/addhealth">Add HealthProblem</Link>
         </li>
         <li>
           <Link to="/stock">Stock</Link>
@@ -50,10 +32,6 @@ const Sidebar = () => {
         </li>
         <li>
           <Link to="/addproduct">Add Product</Link>
-        </li>
-
-        <li>
-          <Link to="/login">Logout</Link>
         </li>
       </ul>
     </div>

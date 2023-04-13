@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Sidebar from "./adminside";
+import AdminNavbar from "./adminNav";
 // import "../../css/addadmin.css";
 
 const Addadmin = () => {
@@ -44,6 +45,7 @@ const Addadmin = () => {
   return (
     <div>
       <Sidebar />
+      <AdminNavbar />
       <div className="container" id="container">
         <div className="form-container sign-in-container">
           <form onSubmit={handlesubmit} className="box">

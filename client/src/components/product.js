@@ -75,7 +75,7 @@ const ProductDetail = () => {
         <div className="product-description">
           <div className="product-images">
             <img
-              src={process.env.PUBLIC_URL + `/images/${product.image}`}
+              src={`data:image/jpeg;base64,${product.pic}`}
               alt={product.Name}
             />
           </div>
@@ -87,13 +87,16 @@ const ProductDetail = () => {
               {product.stock}
             </p>
             <p className="product-description-text">{product.description}</p>
-            <input
-              type="number"
-              id="quantity"
-              name="quantity"
-              min="1"
-              onChange={(e) => setQuantity(e.target.value)}
-            />
+            <div className="product-quantity">
+              <p> Quantity:</p>
+              <input
+                type="number"
+                id="quantity"
+                name="quantity"
+                min="1"
+                onChange={(e) => setQuantity(e.target.value)}
+              />
+            </div>
 
             <button onClick={() => handleAddToCart()}>Add to Cart</button>
           </div>

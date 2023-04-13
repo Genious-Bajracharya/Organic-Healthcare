@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Sidebar from "./adminside";
+import AdminNavbar from "./adminNav";
 
 import axios from "axios";
 import "../../css/dashboard.css";
@@ -77,6 +78,7 @@ const HomePage = () => {
   return (
     <div className="main-content">
       <Sidebar />
+      <AdminNavbar />
 
       <div className="new">
         <h2>Herbs</h2>
@@ -92,7 +94,6 @@ const HomePage = () => {
                 />
                 <h3>{product.Name}</h3>
                 <p>RS {product.price}</p>
-                <button onClick={() => handleupdate(product)}>Update</button>
               </div>
             </Link>
           ))}

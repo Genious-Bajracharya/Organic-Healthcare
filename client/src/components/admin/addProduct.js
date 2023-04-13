@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Sidebar from "./adminside";
+import AdminNavbar from "./adminNav";
+
 import "../../css/admin.css";
 
 const Addadmin = () => {
@@ -52,6 +54,7 @@ const Addadmin = () => {
   return (
     <div className="main-content">
       <Sidebar />
+      <AdminNavbar />
       <form onSubmit={handlesubmit} method="post" encType="multipart/form-data">
         <h1>Add</h1>
         <div className="space"></div>

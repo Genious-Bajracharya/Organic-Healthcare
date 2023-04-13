@@ -3,6 +3,7 @@ import axios from "axios";
 import Sidebar from "./adminside";
 import "../../css/admin.css";
 import { Link, useNavigate } from "react-router-dom";
+import AdminNavbar from "./adminNav";
 
 const Stock = () => {
   const [product, setStock] = useState([]);
@@ -30,6 +31,7 @@ const Stock = () => {
   return (
     <div className="main-content">
       <Sidebar />
+      <AdminNavbar />
       <h2>Stock</h2>
       <table>
         <thead>

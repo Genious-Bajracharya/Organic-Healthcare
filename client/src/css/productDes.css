@@ -73,6 +73,22 @@
 	font-size: 1.2em;
 }
 
+.product-quantity {
+	flex-basis: 25%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+  }
+  
+  .product-quantity input {
+	width: 10%;
+	margin-right: 500px;
+	text-align: center;
+	border: 1px solid #ddd;
+	border-radius: 4px;
+	padding: 4px;
+  }
+
 .product-page button {
 	border-radius: 20px;
 	border: 1px solid #eae7ed;

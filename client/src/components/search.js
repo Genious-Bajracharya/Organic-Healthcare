@@ -43,7 +43,7 @@ const Search = () => {
               <Link to={`/product/${product.id}`}>
                 <div className="product-card" key={product.id}>
                   <img
-                    src={process.env.PUBLIC_URL + `/images/${product.image}`}
+                    src={`data:image/jpeg;base64,${product.pic}`}
                     alt={product.Name}
                   />
                   <h3>{product.Name}</h3>

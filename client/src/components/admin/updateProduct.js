@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 import "../../css/productDes.css";
 import Sidebar from "./adminside";
+import AdminNavbar from "./adminNav";
 
 const ProductDetail = () => {
   const { id } = useParams();
@@ -37,13 +38,32 @@ const ProductDetail = () => {
       alert("Updated successfully");
     } catch (error) {
       console.error(error);
-      alert("Product already added");
+      alert("Product already updated");
+    }
+  };
+
+  const handleRemove = async () => {
+    const productId = product.id;
+    const username = localStorage.getItem("username");
+    try {
+      const res = await axios.post("http://localhost:3001/removeproducts", {
+        price,
+        name,
+        description,
+        productId,
+      });
+      console.log(res.data.message);
+      alert("removed successfully");
+    } catch (error) {
+      console.error(error);
+      alert("Product already Removed");
     }
   };
 
   return (
     <div className="main-content">
       <Sidebar />
+      <AdminNavbar />
       <div className="product-page">
         <div className="product-description">
           <div className="product-images">
@@ -75,7 +95,7 @@ const ProductDetail = () => {
             />
 
             <button onClick={() => handleUpdate()}>Update</button>
-            <button onClick={() => handleUpdate()}>Remove</button>
+            <button onClick={() => handleRemove()}>Remove</button>
           </div>
         </div>
       </div>

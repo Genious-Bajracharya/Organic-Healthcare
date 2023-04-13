@@ -478,7 +478,7 @@ app.post("/cart", (req, res) => {
 app.get("/cart/:username", (req, res) => {
   const username = req.params.username;
   const query =
-    "SELECT  products.Name, products.price, products.pic FROM products INNER JOIN cart ON products.id = cart.product_id WHERE cart.username = ?";
+    "SELECT  products.Name, products.price, products.pic,cart.quantity FROM products INNER JOIN cart ON products.id = cart.product_id WHERE cart.username = ?";
   con.query(query, [username], (err, result) => {
     if (err) throw err;
     result = result.map((product) => {
@@ -574,6 +574,16 @@ app.post("/updateproducts", (req, res) => {
   });
 });
 
+app.post("/removeproducts", (req, res) => {
+  const productId = req.body.productId;
+  const query = "DELETE FROM products WHERE id = ?";
+  con.query(query, [productId], (err, result) => {
+    if (err) throw err;
+
+    res.json({ message: "Product removed successfully" });
+  });
+});
+
 app.get("/updateproducts/:id", (req, res) => {
   const productId = req.params.id;
 
@@ -632,6 +642,22 @@ app.post("/addstock", (req, res) => {
     if (err) throw err;
     res.json({ message: "Stock updated successfully" });
   });
+});
+
+app.post("/addhealthproblem", (req, res) => {
+  const { name, solution1, solution2, solution3, solution4, solution5 } =
+    req.body;
+
+  const query =
+    "INSERT into HEALTH_PROBLEM(name, solution1, solution2, solution3, solution4, solution5) VALUES(?, ?, ?, ?, ?, ?)";
+  con.query(
+    query,
+    [name, solution1, solution2, solution3, solution4, solution5],
+    (err, result) => {
+      if (err) throw err;
+      res.json({ message: "Added successfully" });
+    }
+  );
 });
 
 app.post("/registeradmin", (req, res) => {
@@ -768,8 +794,17 @@ app.get("/search/:id", (req, res) => {
     WHERE h.name LIKE '%${searchTerm}%'
   `;
   con.query(query, [searchTerm], (error, results) => {
-    if (error) throw error;
-    console.log(searchTerm);
+    if (error) {
+      return res.status(500).send(error);
+    }
+
+    results = results.map((product) => {
+      if (product.pic) {
+        product.pic = Buffer.from(product.pic, "binary").toString("base64");
+      }
+      return product;
+    });
+
     res.json(results);
   });
 });

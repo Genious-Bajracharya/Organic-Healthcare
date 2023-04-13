@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Sidebar from "./adminside";
 import "../../css/admin.css";
+import AdminNavbar from "./adminNav";
 
 const Orders = () => {
   const [order, setOrders] = useState([]);
@@ -21,6 +22,7 @@ const Orders = () => {
   return (
     <div className="main-content">
       <Sidebar />
+      <AdminNavbar />
       <h2>Orders</h2>
       <table>
         <thead>

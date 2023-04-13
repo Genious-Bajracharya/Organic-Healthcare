@@ -92,6 +92,7 @@ const Cart = () => {
                 onChange={(event) => handleQuantityChange(event, product.id)}
               />
             </div>
+            <p>{product.quantity}</p>
           </div>
         ))}
 

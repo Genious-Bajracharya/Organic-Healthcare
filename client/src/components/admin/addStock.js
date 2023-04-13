@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 import "../../css/productDes.css";
 import Sidebar from "./adminside";
+import AdminNavbar from "./adminNav";
 
 const ProductDetail = () => {
   const { id } = useParams();
@@ -39,11 +40,12 @@ const ProductDetail = () => {
   return (
     <div className="main-content">
       <Sidebar />
+      <AdminNavbar />
       <div className="product-page">
         <div className="product-description">
           <div className="product-images">
             <img
-              src={process.env.PUBLIC_URL + `/images/${product.image}`}
+              src={`data:image/jpeg;base64,${product.pic}`}
               alt={product.Name}
             />
           </div>
