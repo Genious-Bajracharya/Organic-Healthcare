@@ -43,7 +43,6 @@ const ProductDetail = () => {
         username,
         quantity,
       });
-      console.log(res.data.message);
       alert("Added successfully");
     } catch (error) {
       console.error(error);

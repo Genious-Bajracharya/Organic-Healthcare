@@ -30,7 +30,7 @@ const Cart = () => {
     let totalPrice = 0;
     for (const product of products) {
       const quantity = quantities[product.id] || 1;
-      totalPrice += product.price * quantity;
+      totalPrice += product.price * product.quantity;
     }
     return totalPrice;
   };
@@ -39,13 +39,16 @@ const Cart = () => {
     const items = [];
     for (const product of products) {
       const username = localStorage.getItem("username");
-      const quantity = quantities[product.id] || 1;
+      const quantity = product.quantity;
+      const price = product.price;
+      console.log(price);
       items.push({
         id: product.Name,
         quantity,
         username,
+        price,
       });
-      // console.log(quantity);
+      console.log(quantity);
 
       console.log(username);
       console.log(product);
@@ -82,17 +85,11 @@ const Cart = () => {
             </div>
             <div className="cart-item-details">
               <h3>{product.Name}</h3>
-              <p>Price: RS{product.price}</p>
+              <p>Price: RS. {product.price}</p>
             </div>
             <div className="cart-item-quantity">
-              <input
-                type="number"
-                min="1"
-                value={quantities[product.id] || 1}
-                onChange={(event) => handleQuantityChange(event, product.id)}
-              />
+              <p>{product.quantity}</p>
             </div>
-            <p>{product.quantity}</p>
           </div>
         ))}
 

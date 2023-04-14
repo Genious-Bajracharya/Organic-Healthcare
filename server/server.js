@@ -504,15 +504,19 @@ app.post("/buy", (req, res) => {
 app.post("/order", async (req, res) => {
   const { items } = req.body;
   const { username } = req.body;
+  const { price } = req.body;
   console.log(username);
 
   try {
     for (const item of items) {
       con.query(
-        "INSERT INTO orders (product, quantity, username) VALUES (?, ?, ?)",
-        [item.id, item.quantity, username]
+        "INSERT INTO orders (product, quantity, username, total_price) VALUES (?, ?, ?, ?)",
+        [item.id, item.quantity, username, item.price]
       );
-      con.query("UPDATE products SET stock=stock-1 WHERE Name = ?", [item.id]);
+      con.query("UPDATE products SET stock=stock-? WHERE Name = ?", [
+        item.quantity,
+        item.id,
+      ]);
       // console.log(username);
     }
     con.query("DELETE FROM cart where username= ?", [username]);
