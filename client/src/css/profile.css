@@ -1,0 +1,53 @@
+.profile-container {
+    margin: 20px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  .profile-container h2 {
+    font-size: 28px;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+  
+  .profile-container div {
+    font-size: 20px;
+    margin-bottom: 5px;
+  }
+  
+  .profile-container button {
+    padding: 10px;
+    background-color: #008CBA;
+    color: #fff;
+    font-size: 18px;
+    border-radius: 5px;
+    cursor: pointer;
+    border: none;
+    margin-top: 20px;
+  }
+  
+  .profile-container button:hover {
+    background-color: #010a0f;
+  }
+  
+  @media (max-width: 768px) {
+    .profile-container {
+      margin: 10px;
+      padding: 10px;
+    }
+  
+    .profile-container h2 {
+      font-size: 24px;
+    }
+  
+    .profile-container div {
+      font-size: 16px;
+    }
+  
+    .profile-container button {
+      font-size: 16px;
+      padding: 8px;
+    }
+  }
+  

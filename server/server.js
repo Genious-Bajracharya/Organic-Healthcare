@@ -478,16 +478,54 @@ app.post("/cart", (req, res) => {
 app.get("/cart/:username", (req, res) => {
   const username = req.params.username;
   const query =
-    "SELECT  products.Name, products.price, products.pic,cart.quantity FROM products INNER JOIN cart ON products.id = cart.product_id WHERE cart.username = ?";
+    "SELECT   products.Name,products.id, products.price, products.pic,cart.quantity FROM products INNER JOIN cart ON products.id = cart.product_id WHERE cart.username = ?";
   con.query(query, [username], (err, result) => {
     if (err) throw err;
     result = result.map((product) => {
       if (product.pic) {
         product.pic = Buffer.from(product.pic, "binary").toString("base64");
       }
+
       return product;
     });
+
     res.json(result);
+  });
+});
+
+app.post("/send-email", async (req, res) => {
+  const { from, to, subject, html } = req.body;
+  try {
+    // Send email using nodemailer
+    const mailOptions = {
+      from: from,
+      to: to,
+      subject: subject,
+      html: html,
+    };
+    await transporter.sendMail(mailOptions);
+    res.sendStatus(200);
+  } catch (error) {
+    console.error(error);
+    res.sendStatus(500);
+  }
+});
+
+app.post("/removecart", (req, res) => {
+  // const { name, price, image } = req.body;
+  const productname = req.body.productId;
+  const username = req.body.username;
+  // Save the purchase to the database
+  const query = "Select id from products where name=?";
+  con.query(query, [productname], (err, result) => {
+    if (err) throw err;
+    console.log(result[0]);
+    const productID = result[0].id;
+    const query1 = "Delete from cart where username = ? and product_id =  ?";
+    con.query(query1, [username, productID], (err, result) => {
+      if (err) throw err;
+    });
+    res.json({ message: "Removed successfully" });
   });
 });
 
@@ -795,7 +833,29 @@ app.get("/search/:id", (req, res) => {
       OR h.solution3 LIKE CONCAT('%', p.Name, '%')
       OR h.solution4 LIKE CONCAT('%', p.Name, '%')
       OR h.solution5 LIKE CONCAT('%', p.Name, '%')
-    WHERE h.name LIKE '%${searchTerm}%'
+    WHERE h.name LIKE '${searchTerm}%'
+  `;
+  con.query(query, [searchTerm], (error, results) => {
+    if (error) {
+      return res.status(500).send(error);
+    }
+
+    results = results.map((product) => {
+      if (product.pic) {
+        product.pic = Buffer.from(product.pic, "binary").toString("base64");
+      }
+      return product;
+    });
+
+    res.json(results);
+  });
+});
+
+//search product
+app.get("/searchproduct/:id", (req, res) => {
+  const searchTerm = req.params.id;
+  const query = `
+    SELECT * from products where NAME LIKE '${searchTerm}%'
   `;
   con.query(query, [searchTerm], (error, results) => {
     if (error) {

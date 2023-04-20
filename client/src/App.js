@@ -18,6 +18,7 @@ import Orders from "./components/admin/orders";
 import Stock from "./components/admin/stock";
 import AddStock from "./components/admin/addStock";
 import Search from "./components/search";
+import SearchProduct from "./components/searchproduct";
 import AddProduct from "./components/admin/addProduct";
 import AddAdmin from "./components/admin/addAdmin";
 import AddHealth from "./components/admin/addHealth";
@@ -45,6 +46,7 @@ function App() {
         <Route exact path="/stock" element={<Stock />} />
         <Route exact path="/addstock/:id" element={<AddStock />} />
         <Route exact path="/search/:id" element={<Search />} />
+        <Route exact path="/searchproduct/:id" element={<SearchProduct />} />
         <Route exact path="/addadmin" element={<AddAdmin />} />
         <Route exact path="/addproduct" element={<AddProduct />} />
         <Route exact path="/addhealth" element={<AddHealth />} />

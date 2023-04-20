@@ -4,8 +4,9 @@ import Sidebar from "./adminside";
 import AdminNavbar from "./adminNav";
 
 import "../../css/admin.css";
+import "../../css/add.css";
 
-const Addadmin = () => {
+const Addproduct = () => {
   const [name, setname] = useState("");
   const [price, setprice] = useState("");
   const [description, setdescription] = useState("");
@@ -39,11 +40,11 @@ const Addadmin = () => {
           if (response.data.message) {
             console.log(response.data.message);
           } else {
-            console.log(
-              "ACCOUNT CREATED SUCCESSFULLY CHECK YOU EMAIL FOR VERIFICATION "
-            );
+            console.log("Product added successfully ");
           }
         });
+      alert("Product Added successfully");
+      window.location.reload();
     } catch (error) {
       if (error.response) {
         console.log(error.response.data.message);
@@ -55,58 +56,65 @@ const Addadmin = () => {
     <div className="main-content">
       <Sidebar />
       <AdminNavbar />
-      <form onSubmit={handlesubmit} method="post" encType="multipart/form-data">
-        <h1>Add</h1>
-        <div className="space"></div>
+      <div className="form-style-6">
+        <form
+          onSubmit={handlesubmit}
+          method="post"
+          encType="multipart/form-data"
+        >
+          <h1>Add Product</h1>
+          <div className="space"></div>
 
-        <input
-          type="text"
-          name="name"
-          placeholder="name"
-          id="name"
-          required
-          value={name}
-          onChange={(e) => setname(e.target.value)}
-        />
-        <input
-          type="type"
-          name="type"
-          placeholder="type"
-          id="type"
-          required
-          value={type}
-          onChange={(e) => settype(e.target.value)}
-        />
-        <input
-          type="price"
-          name="price"
-          placeholder="price"
-          id="price"
-          required
-          value={price}
-          onChange={(e) => setprice(e.target.value)}
-        />
-        <input
-          type="description"
-          name="description"
-          placeholder="description"
-          id="description"
-          required
-          value={description}
-          onChange={(e) => setdescription(e.target.value)}
-        />
-        <input
-          type="file"
-          accept="image/*"
-          name="image"
-          onChange={handleImageChange}
-        />
+          <input
+            type="text"
+            name="name"
+            placeholder="name"
+            id="name"
+            required
+            value={name}
+            onChange={(e) => setname(e.target.value)}
+          />
 
-        <br />
-        <button type="submit">Add</button>
-      </form>
+          <input
+            type="text"
+            name="type"
+            placeholder="type"
+            id="type"
+            required
+            value={type}
+            onChange={(e) => settype(e.target.value)}
+          />
+          <input
+            type="number"
+            name="price"
+            placeholder="price"
+            id="price"
+            required
+            value={price}
+            onChange={(e) => setprice(e.target.value)}
+          />
+          <input
+            type="text"
+            name="description"
+            placeholder="description"
+            id="description"
+            required
+            value={description}
+            onChange={(e) => setdescription(e.target.value)}
+          />
+          <input
+            type="file"
+            accept="image/*"
+            name="image"
+            onChange={handleImageChange}
+          />
+
+          <br />
+          <button type="submit">Add</button>
+        </form>
+      </div>
     </div>
   );
 };
 
-export default Addadmin;
+export default Addproduct;

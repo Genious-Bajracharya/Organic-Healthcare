@@ -130,7 +130,7 @@ const HomePage = () => {
             <form className="search-form" onSubmit={handleSearch}>
               <input
                 type="text"
-                placeholder="Search..."
+                placeholder="Search Health Problem"
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
               />

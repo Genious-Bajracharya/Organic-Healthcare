@@ -1,12 +1,12 @@
 .main-content {
-    margin-left: 220px; /* the width of the sidebar plus some margin */
+    margin-left: 220px; 
     padding: 20px;
-    width: 80%; /* adjust to your liking */
+    width: 80%; 
     background-color: #fff;
   }
 
   .main-content.h2 {
-    margin-left: 220px; /* the width of the sidebar plus some margin */
+    margin-left: 220px; 
     
   }
   .main-content button {
@@ -30,6 +30,7 @@
     border-collapse: collapse;
     width: 100%;
     margin-top: 30px;
+    margin-left: 30px;
   }
   
   td, th {

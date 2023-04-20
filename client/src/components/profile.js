@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Navbar from "./navbar";
+import "../css/profile.css";
 
 const Profile = () => {
   const [userData, setUserData] = useState({});
@@ -23,7 +24,7 @@ const Profile = () => {
   return (
     <div>
       <Navbar />
-      <div>
+      <div className="profile-container">
         <h2>Profile</h2>
         <div>Username: {userData.username}</div>
         <div>Email: {userData.email}</div>
