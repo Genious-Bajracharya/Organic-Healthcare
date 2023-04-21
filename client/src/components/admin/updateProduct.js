@@ -4,10 +4,12 @@ import axios from "axios";
 import "../../css/productDes.css";
 import Sidebar from "./adminside";
 import AdminNavbar from "./adminNav";
+import { useNavigate } from "react-router-dom";
 
 const ProductDetail = () => {
   const { id } = useParams();
   const [product, setProduct] = useState({});
+  const navigate = useNavigate();
 
   const [name, setName] = useState("");
   const [price, setPrice] = useState("");
@@ -36,6 +38,7 @@ const ProductDetail = () => {
       });
       console.log(res.data.message);
       alert("Updated successfully");
+      window.location.reload();
     } catch (error) {
       console.error(error);
       alert("Product already updated");
@@ -54,6 +57,7 @@ const ProductDetail = () => {
       });
       console.log(res.data.message);
       alert("removed successfully");
+      navigate("/allproduct");
     } catch (error) {
       console.error(error);
       alert("Product already Removed");
@@ -77,19 +81,19 @@ const ProductDetail = () => {
 
             <input
               type="text"
-              placeholder="Name"
+              placeholder={`Name (${product.Name})`}
               required
               onChange={(e) => setName(e.target.value)}
             />
             <input
               type="number"
-              placeholder="Price"
+              placeholder={`Price (${product.price})`}
               required
               onChange={(e) => setPrice(e.target.value)}
             />
             <input
               type="text"
-              placeholder="Description"
+              placeholder={`Description (${product.description})`}
               required
               onChange={(e) => setDescription(e.target.value)}
             />

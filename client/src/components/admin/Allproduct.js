@@ -113,7 +113,6 @@ const HomePage = () => {
                 />
                 <h3>{product.Name}</h3>
                 <p>RS {product.price}</p>
-                <button onClick={() => handleupdate(product)}>Update</button>
               </div>
             </Link>
           ))}
@@ -133,8 +132,6 @@ const HomePage = () => {
                 />
                 <h3>{product.Name}</h3>
                 <p>RS {product.price}</p>
-
-                <button onClick={() => handleupdate(product)}>Update</button>
               </div>
             </Link>
           ))}

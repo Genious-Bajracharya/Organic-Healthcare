@@ -3,6 +3,8 @@ import axios from "axios";
 import "../css/cart.css";
 import Navbar from "./navbar";
 import { BiTrash } from "react-icons/bi";
+import { RxCross1 } from "react-icons/rx";
+import KhaltiCheckout from "khalti-checkout-web";
 
 const Cart = () => {
   const [products, setProducts] = useState([]);
@@ -10,6 +12,7 @@ const Cart = () => {
   const [quantities, setQuantities] = useState({});
   const username = localStorage.getItem("username");
   const [email, setEmail] = useState("");
+
   // const [product, setProduct] = useState({});
 
   useEffect(() => {
@@ -42,6 +45,31 @@ const Cart = () => {
   const handlebuy = () => {
     setShowForm(true);
   };
+
+  const config = {
+    // replace this key with yours
+    publicKey: "test_public_key_acf579ed65084fd0981860d6294df70f",
+    productIdentity: "1234567890",
+    productName: "Drogon",
+    productUrl: "http://gameofthrones.com/buy/Dragons",
+    eventHandler: {
+      onSuccess: function (payload) {
+        // hit merchant api for initiating verfication
+        handleCheckout();
+        console.log(payload);
+      },
+      onError: function (error) {
+        // handle errors
+        console.log(error);
+      },
+      onClose: function () {
+        console.log("widget is closing");
+      },
+    },
+    paymentPreference: ["KHALTI"],
+  };
+
+  const checkout = new KhaltiCheckout(config);
 
   const handleCheckout = async () => {
     const items = [];
@@ -119,6 +147,7 @@ const Cart = () => {
       html: html,
     };
     await axios.post("http://localhost:3001/send-email", mailOptions);
+
     alert("Purhcase successful");
 
     window.location.reload();
@@ -182,9 +211,23 @@ const Cart = () => {
         <button onClick={handlebuy}>Checkout</button>
         {showForm && (
           <div className="modal">
-            <div className="modal-form">
-              <h2>CONFIRM CEHCKOUT</h2>
+            <form className="modal-form">
+              <RxCross1
+                className="model-cross"
+                size={28}
+                color={"#FF0000"}
+                onClick={() => setShowForm(false)}
+              />
+              <h2 className="modal-h2">CONFIRM CHECKOUT</h2>{" "}
               <input
+                className="modal-input"
+                type="text"
+                name="name"
+                placeholder="Full Name"
+                required
+              />
+              <input
+                className="modal-input"
                 type="email"
                 name="email"
                 placeholder="email"
@@ -193,9 +236,21 @@ const Cart = () => {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
               />
-              <button onClick={() => setShowForm(false)}> BAck</button>
-              <button onClick={handleCheckout}> Checkout</button>
-            </div>
+              <input
+                className="modal-input"
+                type="text"
+                placeholder="Address"
+                required
+              />
+              <button
+                className="modal-button"
+                onClick={() => {
+                  checkout.show({ amount: calculateTotalPrice() * 100 });
+                }}
+              >
+                Checkout
+              </button>
+            </form>
           </div>
         )}
       </div>
