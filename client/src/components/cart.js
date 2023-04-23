@@ -170,7 +170,7 @@ const Cart = () => {
         username,
       });
       console.log(productId);
-      window.location.reload();
+      // window.location.reload();
     } catch (error) {
       console.error(error);
     }
@@ -208,22 +208,25 @@ const Cart = () => {
           <span>Total:</span>
           <strong>RS{calculateTotalPrice()}</strong>
         </div>
-        <button onClick={handlebuy}>Checkout</button>
+        <button className="cart-button" onClick={handlebuy}>
+          Checkout
+        </button>
         {showForm && (
           <div className="modal">
-            <form className="modal-form">
+            <div className="modal-form">
               <RxCross1
                 className="model-cross"
                 size={28}
                 color={"#FF0000"}
                 onClick={() => setShowForm(false)}
               />
-              <h2 className="modal-h2">CONFIRM CHECKOUT</h2>{" "}
+              <h2 className="modal-h2">CONFIRM CHECKOUT</h2>
               <input
                 className="modal-input"
                 type="text"
                 name="name"
                 placeholder="Full Name"
+                id="name"
                 required
               />
               <input
@@ -239,7 +242,9 @@ const Cart = () => {
               <input
                 className="modal-input"
                 type="text"
+                name="Address"
                 placeholder="Address"
+                id="Address"
                 required
               />
               <button
@@ -250,7 +255,8 @@ const Cart = () => {
               >
                 Checkout
               </button>
-            </form>
+              <button onClick={handleCheckout}>Nopay</button>
+            </div>
           </div>
         )}
       </div>

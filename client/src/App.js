@@ -22,6 +22,7 @@ import SearchProduct from "./components/searchproduct";
 import AddProduct from "./components/admin/addProduct";
 import AddAdmin from "./components/admin/addAdmin";
 import AddHealth from "./components/admin/addHealth";
+import Orderdetail from "./components/admin/orderdetail";
 
 function App() {
   return (
@@ -50,6 +51,7 @@ function App() {
         <Route exact path="/addadmin" element={<AddAdmin />} />
         <Route exact path="/addproduct" element={<AddProduct />} />
         <Route exact path="/addhealth" element={<AddHealth />} />
+        <Route exact path="/orderdetail/:id" element={<Orderdetail />} />
       </Routes>
     </BrowserRouter>
   );

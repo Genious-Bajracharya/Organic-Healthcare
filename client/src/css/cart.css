@@ -78,6 +78,17 @@
   background: #48484830;
   margin: 20px 0;
 }
+
+.cart-button{
+  background-color: #27ae60; 
+  margin-top: 30px;
+  float: right;
+}
+
+.cart-button:hover {
+  box-shadow: rgba(13, 92, 46, 0.2) 0 6px 12px;
+}
+
 .modal {
   position: fixed;
   top: 0;
@@ -138,7 +149,7 @@
       touch-action: manipulation;
       vertical-align: top;
       white-space: nowrap;
-      /* margin-left: 37%; */
+      margin-left: 37%;
       margin-top: 15px;
    
     }

@@ -579,8 +579,24 @@ app.get("/users", (req, res) => {
 });
 
 app.get("/orders", (req, res) => {
-  const query = "SELECT * FROM orders";
+  const query =
+    "SELECT DISTINCT DATE_FORMAT(created_at, '%Y-%m-%d %H:%i:%s') as created_at, order_id, status, product, username FROM orders ORDER BY created_at DESC";
   con.query(query, ["admin"], (error, results) => {
+    if (error) {
+      console.error("Error fetching users: ", error.message);
+      res.sendStatus(500);
+    } else {
+      res.json(results);
+    }
+  });
+});
+
+app.get("/orderdetail/:id", (req, res) => {
+  const date = req.params.id;
+  const { username } = req.body;
+  console.log(date);
+  const query = "SELECT * from orders where created_at = ?";
+  con.query(query, [date], (error, results) => {
     if (error) {
       console.error("Error fetching users: ", error.message);
       res.sendStatus(500);
