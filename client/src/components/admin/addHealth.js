@@ -2,9 +2,8 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Sidebar from "./adminside";
 import AdminNavbar from "./adminNav";
-
-import "../../css/admin.css";
 import "../../css/add.css";
+import "../../css/admin.css";
 
 const AddHealth = () => {
   const [name, setname] = useState("");
@@ -113,7 +112,9 @@ const AddHealth = () => {
           />
 
           <br />
-          <button type="submit">Add</button>
+          <button className="add-button" type="submit">
+            Add
+          </button>
         </form>
       </div>
     </div>

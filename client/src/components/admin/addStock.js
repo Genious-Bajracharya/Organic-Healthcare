@@ -29,11 +29,13 @@ const ProductDetail = () => {
         addstock,
         productId,
       });
+      console.log(productId);
       console.log(res.data.message);
       alert("Stock Updated successfully");
     } catch (error) {
       console.error(error);
-      alert("Product already added");
+      console.log(productId);
+      alert("Stock already added");
     }
   };
 
@@ -51,9 +53,10 @@ const ProductDetail = () => {
           </div>
           <div className="product-details">
             <h2>{product.Name}</h2>
-            <h2>In Stock: {product.stock}</h2>
+            <h4>In Stock: {product.stock}</h4>
 
             <input
+              className="product-add"
               type="number"
               placeholder="Add Stock"
               value={addstock}
@@ -61,7 +64,9 @@ const ProductDetail = () => {
               onChange={(e) => setstock(e.target.value)}
             />
 
-            <button onClick={() => handleUpdate()}>Add</button>
+            <button className="add-button" onClick={() => handleUpdate()}>
+              Add
+            </button>
           </div>
         </div>
       </div>

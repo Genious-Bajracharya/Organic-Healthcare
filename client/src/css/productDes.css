@@ -74,10 +74,12 @@
 }
 
 .product-quantity {
-	flex-basis: 25%;
+	flex-basis: 35%;
 	display: flex;
-	justify-content: center;
-	align-items: center;
+	/* justify-content: center;
+	align-items: center; */
+	margin-left: 80px;
+	margin-top: -60px;
   }
   
   .product-quantity input {
@@ -87,6 +89,17 @@
 	border: 1px solid #ddd;
 	border-radius: 4px;
 	padding: 4px;
+  }
+
+  .product-add{
+	width:50%;
+	border-radius: 10px;
+  }
+
+  .add-button{
+	margin-right: 360px;
+	/* margin-bottom: 500px; */
+
   }
 
 .product-page button {

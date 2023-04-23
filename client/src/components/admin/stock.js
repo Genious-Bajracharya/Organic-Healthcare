@@ -32,7 +32,7 @@ const Stock = () => {
     <div className="main-content">
       <Sidebar />
       <AdminNavbar />
-      <h2>Stock</h2>
+      <h2 className="main-content_h2">Stock</h2>
       <table>
         <thead>
           <tr>
@@ -48,7 +48,10 @@ const Stock = () => {
               <td>{stock.Name}</td>
               <td>{stock.type}</td>
               <td>{stock.stock}</td>
-              <button onClick={() => navigate(`/addstock/${stock.id}`)}>
+              <button
+                className="main-content_button"
+                onClick={() => navigate(`/addstock/${stock.id}`)}
+              >
                 Add
               </button>
             </tr>

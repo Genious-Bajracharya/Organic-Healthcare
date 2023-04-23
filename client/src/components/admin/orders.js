@@ -31,11 +31,26 @@ const Orders = () => {
     return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
   };
 
+  const handleUpdate = async (order) => {
+    const productId = formatDate(order.created_at);
+    try {
+      const res = await axios.post("http://localhost:3001/status", {
+        productId,
+      });
+      console.log(res.data.message);
+      alert("Status Updated successfully");
+      window.location.reload();
+    } catch (error) {
+      console.error(error);
+      alert("Status already added");
+    }
+  };
+
   return (
     <div className="main-content">
       <Sidebar />
       <AdminNavbar />
-      <h2>Orders</h2>
+      <h2 className="main-content_h2">Orders</h2>
       <table>
         <thead>
           <tr>
@@ -43,21 +58,31 @@ const Orders = () => {
 
             <th>Order Time</th>
             <th>Status</th>
+            <th>Change Status</th>
           </tr>
         </thead>
         <tbody>
           {order.map((order) => (
             <tr key={order.order_id}>
               <td>
-                <Link to={`/orderdetail/${formatDate(order.created_at)}`}>
+                <Link
+                  className="link"
+                  to={`/orderdetail/${formatDate(order.created_at)}`}
+                >
                   {order.username}
                 </Link>
               </td>
 
               <td>{formatDate(order.created_at)}</td>
               <td>{order.status}</td>
-
-              <button>Done</button>
+              <td>
+                <button
+                  className="main-content_button"
+                  onClick={() => handleUpdate(order)}
+                >
+                  Done
+                </button>
+              </td>
             </tr>
           ))}
         </tbody>

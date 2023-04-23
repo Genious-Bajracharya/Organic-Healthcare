@@ -580,7 +580,7 @@ app.get("/users", (req, res) => {
 
 app.get("/orders", (req, res) => {
   const query =
-    "SELECT DISTINCT DATE_FORMAT(created_at, '%Y-%m-%d %H:%i:%s') as created_at, order_id, status, product, username FROM orders ORDER BY created_at DESC";
+    "SELECT DATE_FORMAT(created_at, '%Y-%m-%d %H:%i:%s') as created_at, status, product, username FROM orders GROUP BY created_at ORDER BY status DESC,created_at DESC;";
   con.query(query, ["admin"], (error, results) => {
     if (error) {
       console.error("Error fetching users: ", error.message);
@@ -588,6 +588,15 @@ app.get("/orders", (req, res) => {
     } else {
       res.json(results);
     }
+  });
+});
+
+app.post("/status", (req, res) => {
+  const productId = req.body.productId;
+  const query = "UPDATE orders SET status = ? WHERE created_at = ?";
+  con.query(query, ["Delivered", productId], (err, result) => {
+    if (err) throw err;
+    res.json({ message: "Stock updated successfully" });
   });
 });
 

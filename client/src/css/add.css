@@ -61,3 +61,13 @@
 .form-style-6 input[type="button"]:hover{
 	background: #2EBC99;
 }
+
+.add-button{
+	background-color: #27ae60; 
+	margin-top: 30px;
+	float: right;
+}
+
+.add-button:hover {
+	box-shadow: rgba(13, 92, 46, 0.2) 0 6px 12px;
+  }

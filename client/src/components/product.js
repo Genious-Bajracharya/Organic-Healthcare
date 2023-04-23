@@ -90,12 +90,13 @@ const ProductDetail = () => {
               {product.stock}
             </p>
             <p className="product-description-text">{product.description}</p>
+            <p> Quantity:</p>
             <div className="product-quantity">
-              <p> Quantity:</p>
               <input
                 type="number"
                 id="quantity"
                 name="quantity"
+                placeholder="1"
                 min="1"
                 onChange={(e) => setQuantity(e.target.value)}
               />

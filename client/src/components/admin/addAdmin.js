@@ -45,7 +45,7 @@ const Addadmin = () => {
   return (
     <div>
       <Sidebar />
-      <AdminNavbar />
+
       <div className="container" id="container">
         <div className="form-container sign-in-container">
           <form onSubmit={handlesubmit} className="box">
@@ -100,7 +100,7 @@ const Addadmin = () => {
           <div className="overlay">
             <div className="overlay-panel overlay-right">
               <h1>Welcome To Organic Healthcare!</h1>
-              <p>Resgiter an ADmin here </p>
+              <p>Resgiter an Admin here </p>
             </div>
           </div>
         </div>

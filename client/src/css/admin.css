@@ -5,11 +5,11 @@
     background-color: #fff;
   }
 
-  .main-content.h2 {
-    margin-left: 220px; 
+  .main-content_h2 {
+    margin-left: 30px; 
     
   }
-  .main-content button {
+  .main-content_button {
     background-color: #01090e;
     color: #fff;
     border: none;
@@ -49,5 +49,9 @@
   
   tr:hover {
     background-color: #ddd;
+  }
+
+  .link{
+    color: #01090e;
   }
   

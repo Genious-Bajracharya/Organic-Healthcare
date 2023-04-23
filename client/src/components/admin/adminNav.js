@@ -2,6 +2,7 @@ import React from "react";
 import "../../css/adminnav.css";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
+import { AiOutlineBell } from "react-icons/ai";
 
 function AdminNavbar() {
   const navigate = useNavigate();
@@ -22,6 +23,11 @@ function AdminNavbar() {
         <li className="nav-item">
           <a onClick={handleLogout} href="/login" className="nav-link">
             Logout
+          </a>
+        </li>
+        <li className="nav-noti">
+          <a href="">
+            <AiOutlineBell size={30} color={"#FFF"} />
           </a>
         </li>
       </ul>
