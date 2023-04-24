@@ -25,11 +25,11 @@ function AdminNavbar() {
             Logout
           </a>
         </li>
-        <li className="nav-noti">
+        {/*<li className="nav-noti">
           <a href="">
             <AiOutlineBell size={30} color={"#FFF"} />
           </a>
-        </li>
+  </li> */}
       </ul>
     </nav>
   );

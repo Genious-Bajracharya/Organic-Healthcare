@@ -3,6 +3,7 @@ import axios from "axios";
 import Sidebar from "./adminside";
 import "../../css/admin.css";
 import AdminNavbar from "./adminNav";
+import { Link } from "react-router-dom";
 import {
   LineChart,
   Line,
@@ -31,22 +32,33 @@ const AdminPanel = () => {
 
   return (
     <div className="main-content">
-      <Sidebar />
-      <AdminNavbar />
-      <LineChart width={600} height={300} data={data}>
-        <XAxis dataKey="user" />
-        <YAxis />
-        <CartesianGrid strokeDasharray="3 3" />
-        <Tooltip />
-        <Legend />
-        <Line type="monotone" dataKey="user" stroke="#8884d8" />
-      </LineChart>
+      <Sidebar /> <AdminNavbar />
+      <h1>Welcome</h1>
+      <h1>to the admin panel</h1>
+      <h1>for Organic Helthcare</h1>
+      <div className="adm-container">
+        <div className="box">
+          <h2>Users</h2>
+          <p>Total Users: </p>
+        </div>
+
+        <div className="box">
+          <h2>Orders</h2>
+
+          <p>total Orders:</p>
+        </div>
+
+        <div className="box">
+          <h2>Stock </h2>
+          <p>Out of Stock:</p>
+        </div>
+      </div>
     </div>
   );
 
   // return (
   //   <div className="main-content">
-  //     <Sidebar /> <AdminNavbar />
+  //
   //     <h2>All Users</h2>
   //     <table>
   //       <thead>

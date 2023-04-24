@@ -32,6 +32,7 @@ const ProductDetail = () => {
       console.log(productId);
       console.log(res.data.message);
       alert("Stock Updated successfully");
+      window.location.reload();
     } catch (error) {
       console.error(error);
       console.log(productId);
