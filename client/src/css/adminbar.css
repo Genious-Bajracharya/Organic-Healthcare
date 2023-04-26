@@ -1,66 +1,79 @@
-.sidebar {
-    background-color: #1e1e1e;
-    height: 100%;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 240px;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
-    z-index: 1000;
-  }
-  .sidebar-header {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 30px;
-  }
-  .sidebar-header h3 {
-    font-size: 28px;
-    color: #fff;
-  }
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
 
-  .sidebar-menu {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-  }
-  .sidebar-menu li {
-    margin-bottom: 20px;
-  }
-  .sidebar ul {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-  }
-  
-  .sidebar li {
-    border-bottom: 1px solid #e6e6e6;
-  }
-  
-  .sidebar li:last-child {
-    border-bottom: none;
-  }
-  
-  .sidebar a {
-    color: #333;
-    display: block;
-    padding: 10px 20px;
-    text-decoration: none;
-    transition: all 0.3s ease;
-  }
-  .sidebar-menu a {
-    display: block;
-    padding: 10px;
-    border-radius: 5px;
-    color: #fff;
-    text-decoration: none;
-    transition: all 0.2s ease;
-  }
-  
-  /* .sidebar a:hover {
-    background-color: #f5f5f5;
-  } */
-  
-  .sidebar-menu a:hover {
-    background-color: #2b2b2b;
-  }
+ .sidebar *{
+   margin: 0;
+   padding: 0;
+   box-sizing: border-box;
+   font-family: 'Poppins', sans-serif;
+
+ 
+ } 
+ .sidebar{
+  top: 0px;
+   position: fixed;
+   height: 100%;
+   width: 240px;
+   background: #1d0120;
+
+   transition: all 0.5s ease;
+ }
+
+ .sidebar.active{
+   width: 60px;
+ }
+ .sidebar .logo-details{
+   height: 80px;
+   display: flex;
+   align-items: center;
+ }
+ .sidebar .logo-details i{
+   font-size: 28px;
+   font-weight: 500;
+   color: #fff;
+   min-width: 60px;
+   text-align: center
+ }
+ .sidebar .logo-details .logo_name{
+   color: #fff;
+   font-size: 24px;
+   font-weight: 500;
+ }
+ .sidebar .nav-links{
+   margin-top: 10px;
+ }
+ .sidebar .nav-links li{
+   position: relative;
+   list-style: none;
+   height: 50px;
+ }
+ .sidebar .nav-links li a{
+   height: 100%;
+   width: 100%;
+   display: flex;
+   align-items: center;
+   text-decoration: none;
+   transition: all 0.4s ease;
+ }
+ .sidebar .nav-links li a.active{
+   background: #050006;
+ }
+ .sidebar .nav-links li a:hover{
+   background: #00050e;
+ }
+ .sidebar .nav-links li i{
+   min-width: 60px;
+   text-align: center;
+   font-size: 18px;
+   color: #fff;
+ }
+ .sidebar .nav-links li a .links_name{
+   color: #fff;
+   font-size: 15px;
+   font-weight: 400;
+   white-space: nowrap;
+ }
+ .sidebar .nav-links .log_out{
+   position: absolute;
+   bottom: 0;
+   width: 100%;
+ }

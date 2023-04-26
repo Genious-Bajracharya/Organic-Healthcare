@@ -12,25 +12,19 @@ function AdminNavbar() {
     navigate("/login");
   };
   return (
-    <nav className="admin-navbar">
-      <ul className="nav-menu">
-        <li className="nav-item">
-          <a href="/admin" className="nav-link">
-            Home
-          </a>
-        </li>
-
-        <li className="nav-item">
-          <a onClick={handleLogout} href="/login" className="nav-link">
-            Logout
-          </a>
-        </li>
-        {/*<li className="nav-noti">
-          <a href="">
-            <AiOutlineBell size={30} color={"#FFF"} />
-          </a>
-  </li> */}
-      </ul>
+    <nav className="admin-nav">
+      <div className="sidebar-button">
+        <i className="bx bx-menu sidebarBtn" />
+        <span className="dashboard">Dashboard</span>
+      </div>
+      <div className="search-box">
+        <input type="text" placeholder="Search..." />
+        <i className="bx bx-search" />
+      </div>
+      <div className="profile-details">
+        <span className="admin_name">Admin</span>
+        <i className="bx bx-chevron-down" />
+      </div>
     </nav>
   );
 }

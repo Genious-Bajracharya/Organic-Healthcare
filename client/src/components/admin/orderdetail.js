@@ -34,33 +34,35 @@ const Orderdetail = () => {
   };
 
   return (
-    <div className="main-content">
+    <div>
       <Sidebar />
       <AdminNavbar />
-      <h2 className="main-content_h2">Order Detail</h2>
-      <table>
-        <thead>
-          <tr>
-            <th>Product</th>
-            <th>Quantity</th>
-            <th>Price</th>
-            <th>Order Time</th>
-            <th>Status</th>
-          </tr>
-        </thead>
-        <tbody>
-          {order.map((order) => (
-            <tr key={order.order_id}>
-              <td>{order.product}</td>
-              <td>{order.quantity}</td>
-              <td>{order.total_price * order.quantity}</td>
-
-              <td>{formatDate(order.created_at)}</td>
-              <td>{order.status}</td>
+      <div className="main-content">
+        <h2 className="main-content_h2">Order Detail</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Product</th>
+              <th>Quantity</th>
+              <th>Price</th>
+              <th>Order Time</th>
+              <th>Status</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {order.map((order) => (
+              <tr key={order.order_id}>
+                <td>{order.product}</td>
+                <td>{order.quantity}</td>
+                <td>{order.total_price * order.quantity}</td>
+
+                <td>{formatDate(order.created_at)}</td>
+                <td>{order.status}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 };

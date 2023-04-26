@@ -4,6 +4,7 @@ import Sidebar from "./adminside";
 import AdminNavbar from "./adminNav";
 import "../../css/add.css";
 import "../../css/admin.css";
+import Stats from "./stats.js";
 
 const AddHealth = () => {
   const [name, setname] = useState("");
@@ -44,78 +45,82 @@ const AddHealth = () => {
   };
 
   return (
-    <div className="main-content">
-      <Sidebar />
+    <div>
       <AdminNavbar />
-      <div className="form-style-6">
-        <form
-          onSubmit={handlesubmit}
-          method="post"
-          encType="multipart/form-data"
-        >
-          <h1>Add Health Problem</h1>
-          <div className="space"></div>
+      <Sidebar />
+      <Stats />
 
-          <input
-            type="text"
-            name="name"
-            placeholder="Name of Health Problem"
-            id="name"
-            required
-            value={name}
-            onChange={(e) => setname(e.target.value)}
-          />
-          <input
-            type="type"
-            name="type"
-            placeholder="Solution 1"
-            id="type"
-            required
-            value={solution1}
-            onChange={(e) => setsolution1(e.target.value)}
-          />
-          <input
-            type="type"
-            name="type"
-            placeholder="Solution 2"
-            id="type"
-            required
-            value={solution2}
-            onChange={(e) => setsolution2(e.target.value)}
-          />
-          <input
-            type="type"
-            name="type"
-            placeholder="Solution 3"
-            id="type"
-            required
-            value={solution3}
-            onChange={(e) => setsolution3(e.target.value)}
-          />
-          <input
-            type="type"
-            name="type"
-            placeholder="Solution 4"
-            id="type"
-            required
-            value={solution4}
-            onChange={(e) => setsolution4(e.target.value)}
-          />
-          <input
-            type="type"
-            name="type"
-            placeholder="Solution 5"
-            id="type"
-            required
-            value={solution5}
-            onChange={(e) => setsolution5(e.target.value)}
-          />
+      <div className="main-content">
+        <div className="form-style-6">
+          <form
+            onSubmit={handlesubmit}
+            method="post"
+            encType="multipart/form-data"
+          >
+            <h1>Add Health Problem</h1>
+            <div className="space"></div>
 
-          <br />
-          <button className="add-button" type="submit">
-            Add
-          </button>
-        </form>
+            <input
+              type="text"
+              name="name"
+              placeholder="Name of Health Problem"
+              id="name"
+              required
+              value={name}
+              onChange={(e) => setname(e.target.value)}
+            />
+            <input
+              type="type"
+              name="type"
+              placeholder="Solution 1"
+              id="type"
+              required
+              value={solution1}
+              onChange={(e) => setsolution1(e.target.value)}
+            />
+            <input
+              type="type"
+              name="type"
+              placeholder="Solution 2"
+              id="type"
+              required
+              value={solution2}
+              onChange={(e) => setsolution2(e.target.value)}
+            />
+            <input
+              type="type"
+              name="type"
+              placeholder="Solution 3"
+              id="type"
+              required
+              value={solution3}
+              onChange={(e) => setsolution3(e.target.value)}
+            />
+            <input
+              type="type"
+              name="type"
+              placeholder="Solution 4"
+              id="type"
+              required
+              value={solution4}
+              onChange={(e) => setsolution4(e.target.value)}
+            />
+            <input
+              type="type"
+              name="type"
+              placeholder="Solution 5"
+              id="type"
+              required
+              value={solution5}
+              onChange={(e) => setsolution5(e.target.value)}
+            />
+
+            <br />
+            <button className="add-button" type="submit">
+              Add
+            </button>
+          </form>
+        </div>
       </div>
     </div>
   );

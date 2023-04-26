@@ -65,41 +65,43 @@ const ProductDetail = () => {
   };
 
   return (
-    <div className="main-content">
+    <div>
       <Sidebar />
       <AdminNavbar />
-      <div className="product-page">
-        <div className="product-description">
-          <div className="product-images">
-            <img
-              src={`data:image/jpeg;base64,${product.pic}`}
-              alt={product.Name}
-            />
-          </div>
-          <div className="product-details">
-            <h2>{product.Name}</h2>
+      <div className="main-content">
+        <div className="product-page">
+          <div className="product-description">
+            <div className="product-images">
+              <img
+                src={`data:image/jpeg;base64,${product.pic}`}
+                alt={product.Name}
+              />
+            </div>
+            <div className="product-details">
+              <h2>{product.Name}</h2>
 
-            <input
-              type="text"
-              placeholder={`Name (${product.Name})`}
-              required
-              onChange={(e) => setName(e.target.value)}
-            />
-            <input
-              type="number"
-              placeholder={`Price (${product.price})`}
-              required
-              onChange={(e) => setPrice(e.target.value)}
-            />
-            <input
-              type="text"
-              placeholder={`Description (${product.description})`}
-              required
-              onChange={(e) => setDescription(e.target.value)}
-            />
+              <input
+                type="text"
+                placeholder={`Name (${product.Name})`}
+                required
+                onChange={(e) => setName(e.target.value)}
+              />
+              <input
+                type="number"
+                placeholder={`Price (${product.price})`}
+                required
+                onChange={(e) => setPrice(e.target.value)}
+              />
+              <input
+                type="text"
+                placeholder={`Description (${product.description})`}
+                required
+                onChange={(e) => setDescription(e.target.value)}
+              />
 
-            <button onClick={() => handleUpdate()}>Update</button>
-            <button onClick={() => handleRemove()}>Remove</button>
+              <button onClick={() => handleUpdate()}>Update</button>
+              <button onClick={() => handleRemove()}>Remove</button>
+            </div>
           </div>
         </div>
       </div>

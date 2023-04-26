@@ -566,6 +566,44 @@ app.post("/order", async (req, res) => {
 });
 
 //admin
+
+app.get("/showusers", (req, res) => {
+  const query = "select count(username) from users";
+  con.query(query, ["admin"], (error, results) => {
+    if (error) {
+      console.error("Error fetching users: ", error.message);
+      res.sendStatus(500);
+    } else {
+      res.json(results);
+      console.log(results);
+    }
+  });
+});
+
+app.get("/showstock", (req, res) => {
+  const query = "select count(Name) from products where stock=0";
+  con.query(query, ["admin"], (error, results) => {
+    if (error) {
+      console.error("Error fetching users: ", error.message);
+      res.sendStatus(500);
+    } else {
+      res.json(results);
+    }
+  });
+});
+
+app.get("/showorder", (req, res) => {
+  const query = "select count(DISTINCT created_at) from orders";
+  con.query(query, ["admin"], (error, results) => {
+    if (error) {
+      console.error("Error fetching users: ", error.message);
+      res.sendStatus(500);
+    } else {
+      res.json(results);
+    }
+  });
+});
+
 app.get("/users", (req, res) => {
   const query = "SELECT * FROM users where role!=? ";
   con.query(query, ["admin"], (error, results) => {

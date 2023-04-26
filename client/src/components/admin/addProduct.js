@@ -2,9 +2,8 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Sidebar from "./adminside";
 import AdminNavbar from "./adminNav";
-
-import "../../css/admin.css";
 import "../../css/add.css";
+import "../../css/admin.css";
 
 const Addproduct = () => {
   const [name, setname] = useState("");
@@ -53,67 +52,69 @@ const Addproduct = () => {
   };
 
   return (
-    <div className="main-content">
+    <div>
       <Sidebar />
       <AdminNavbar />
-      <div className="form-style-6">
-        <form
-          onSubmit={handlesubmit}
-          method="post"
-          encType="multipart/form-data"
-        >
-          <h1>Add Product</h1>
-          <div className="space"></div>
+      <div className="main-content">
+        <div className="form-style-6">
+          <form
+            onSubmit={handlesubmit}
+            method="post"
+            encType="multipart/form-data"
+          >
+            <h1>Add Product</h1>
+            <div className="space"></div>
 
-          <input
-            type="text"
-            name="name"
-            placeholder="name"
-            id="name"
-            required
-            value={name}
-            onChange={(e) => setname(e.target.value)}
-          />
+            <input
+              type="text"
+              name="name"
+              placeholder="name"
+              id="name"
+              required
+              value={name}
+              onChange={(e) => setname(e.target.value)}
+            />
 
-          <input
-            type="text"
-            name="type"
-            placeholder="type"
-            id="type"
-            required
-            value={type}
-            onChange={(e) => settype(e.target.value)}
-          />
-          <input
-            type="number"
-            name="price"
-            placeholder="price"
-            id="price"
-            required
-            value={price}
-            onChange={(e) => setprice(e.target.value)}
-          />
-          <input
-            type="text"
-            name="description"
-            placeholder="description"
-            id="description"
-            required
-            value={description}
-            onChange={(e) => setdescription(e.target.value)}
-          />
-          <input
-            type="file"
-            accept="image/*"
-            name="image"
-            onChange={handleImageChange}
-          />
+            <input
+              type="text"
+              name="type"
+              placeholder="type"
+              id="type"
+              required
+              value={type}
+              onChange={(e) => settype(e.target.value)}
+            />
+            <input
+              type="number"
+              name="price"
+              placeholder="price"
+              id="price"
+              required
+              value={price}
+              onChange={(e) => setprice(e.target.value)}
+            />
+            <input
+              type="text"
+              name="description"
+              placeholder="description"
+              id="description"
+              required
+              value={description}
+              onChange={(e) => setdescription(e.target.value)}
+            />
+            <input
+              type="file"
+              accept="image/*"
+              name="image"
+              onChange={handleImageChange}
+            />
 
-          <br />
-          <button className="add-button" type="submit">
-            Add
-          </button>
-        </form>
+            <br />
+            <button className="add-button" type="submit">
+              Add
+            </button>
+          </form>
+        </div>
       </div>
     </div>
   );

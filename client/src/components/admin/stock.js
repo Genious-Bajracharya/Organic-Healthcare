@@ -29,35 +29,37 @@ const Stock = () => {
   };
 
   return (
-    <div className="main-content">
+    <div>
       <Sidebar />
       <AdminNavbar />
-      <h2 className="main-content_h2">Stock</h2>
-      <table>
-        <thead>
-          <tr>
-            <th>Product</th>
-            <th>Type</th>
-            <th>InStock</th>
-            <th>Add Stock</th>
-          </tr>
-        </thead>
-        <tbody>
-          {product.map((stock) => (
-            <tr key={stock.id}>
-              <td>{stock.Name}</td>
-              <td>{stock.type}</td>
-              <td>{stock.stock}</td>
-              <button
-                className="main-content_button"
-                onClick={() => navigate(`/addstock/${stock.id}`)}
-              >
-                Add
-              </button>
+      <div className="main-content">
+        <h2 className="main-content_h2">Stock</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Product</th>
+              <th>Type</th>
+              <th>InStock</th>
+              <th>Add Stock</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {product.map((stock) => (
+              <tr key={stock.id}>
+                <td>{stock.Name}</td>
+                <td>{stock.type}</td>
+                <td>{stock.stock}</td>
+                <button
+                  className="main-content_button"
+                  onClick={() => navigate(`/addstock/${stock.id}`)}
+                >
+                  Add
+                </button>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 };

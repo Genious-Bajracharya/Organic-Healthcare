@@ -41,33 +41,35 @@ const ProductDetail = () => {
   };
 
   return (
-    <div className="main-content">
+    <div>
       <Sidebar />
       <AdminNavbar />
-      <div className="product-page">
-        <div className="product-description">
-          <div className="product-images">
-            <img
-              src={`data:image/jpeg;base64,${product.pic}`}
-              alt={product.Name}
-            />
-          </div>
-          <div className="product-details">
-            <h2>{product.Name}</h2>
-            <h4>In Stock: {product.stock}</h4>
+      <div className="main-content">
+        <div className="product-page">
+          <div className="product-description">
+            <div className="product-images">
+              <img
+                src={`data:image/jpeg;base64,${product.pic}`}
+                alt={product.Name}
+              />
+            </div>
+            <div className="product-details">
+              <h2>{product.Name}</h2>
+              <h4>In Stock: {product.stock}</h4>
 
-            <input
-              className="product-add"
-              type="number"
-              placeholder="Add Stock"
-              value={addstock}
-              required
-              onChange={(e) => setstock(e.target.value)}
-            />
+              <input
+                className="product-add"
+                type="number"
+                placeholder="Add Stock"
+                value={addstock}
+                required
+                onChange={(e) => setstock(e.target.value)}
+              />
 
-            <button className="add-button" onClick={() => handleUpdate()}>
-              Add
-            </button>
+              <button className="add-button" onClick={() => handleUpdate()}>
+                Add
+              </button>
+            </div>
           </div>
         </div>
       </div>

@@ -47,46 +47,48 @@ const Orders = () => {
   };
 
   return (
-    <div className="main-content">
+    <div>
       <Sidebar />
       <AdminNavbar />
-      <h2 className="main-content_h2">Orders</h2>
-      <table>
-        <thead>
-          <tr>
-            <th>Username</th>
+      <div className="main-content">
+        <h2 className="main-content_h2">Orders</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Username</th>
 
-            <th>Order Time</th>
-            <th>Status</th>
-            <th>Change Status</th>
-          </tr>
-        </thead>
-        <tbody>
-          {order.map((order) => (
-            <tr key={order.order_id}>
-              <td>
-                <Link
-                  className="link"
-                  to={`/orderdetail/${formatDate(order.created_at)}`}
-                >
-                  {order.username}
-                </Link>
-              </td>
-
-              <td>{formatDate(order.created_at)}</td>
-              <td>{order.status}</td>
-              <td>
-                <button
-                  className="main-content_button"
-                  onClick={() => handleUpdate(order)}
-                >
-                  Done
-                </button>
-              </td>
+              <th>Order Time</th>
+              <th>Status</th>
+              <th>Change Status</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {order.map((order) => (
+              <tr key={order.order_id}>
+                <td>
+                  <Link
+                    className="link"
+                    to={`/orderdetail/${formatDate(order.created_at)}`}
+                  >
+                    {order.username}
+                  </Link>
+                </td>
+
+                <td>{formatDate(order.created_at)}</td>
+                <td>{order.status}</td>
+                <td>
+                  <button
+                    className="main-content_button"
+                    onClick={() => handleUpdate(order)}
+                  >
+                    Done
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 };
