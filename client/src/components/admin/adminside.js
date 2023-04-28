@@ -1,8 +1,16 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import "../../css/adminbar.css";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, NavLink } from "react-router-dom";
 import { BiCPlusPlus } from "react-icons/bi";
+import { RxDashboard } from "react-icons/rx";
+import {
+  AiOutlineUserAdd,
+  AiOutlineUnorderedList,
+  AiOutlineShoppingCart,
+} from "react-icons/ai";
+import { BiCartAdd, BiPackage, BiLogOut } from "react-icons/bi";
+import { GiHealingShield } from "react-icons/gi";
 
 const Sidebar = () => {
   const navigate = useNavigate();
@@ -15,57 +23,73 @@ const Sidebar = () => {
   return (
     <div className="sidebar">
       <div className="logo-details">
-        <i className="bx bxl-c-plus-plus" />
+        <i className="bx bxl-c-plus-plus"></i>
         <span className="logo_name">Organic Healtcare</span>
       </div>
       <ul className="nav-links">
         <li>
           <a href="/admin" className="active">
-            <i className="bx bx-box" />
+            <i className="bx bx-box">
+              <RxDashboard />
+            </i>
             <span className="links_name">Dashboard</span>
           </a>
         </li>
         <li>
           <a href="/allproduct">
-            <i className="bx bx-box" />
+            <i className="bx bx-box">
+              <AiOutlineShoppingCart />
+            </i>
             <span className="links_name">Product</span>
           </a>
         </li>
         <li>
           <a href="/orders">
-            <i className="bx bx-list-ul" />
+            <i className="bx bx-list-ul">
+              <AiOutlineUnorderedList />
+            </i>
             <span className="links_name">Order list</span>
           </a>
         </li>
 
         <li>
           <a href="/stock">
-            <i className="bx bx-coin-stack" />
+            <i className="bx bx-coin-stack">
+              <BiPackage />
+            </i>
             <span className="links_name">Stock</span>
           </a>
         </li>
         <li>
           <a href="/addhealth">
-            <i className="bx bx-book-alt" />
+            <i className="bx bx-book-alt">
+              <GiHealingShield />
+            </i>
             <span className="links_name">Add HealthProblem</span>
           </a>
         </li>
         <li>
           <a href="/addproduct">
-            <i className="bx bx-book-alt" />
+            <i className="bx bx-book-alt">
+              <BiCartAdd />
+            </i>
             <span className="links_name">Add Product</span>
           </a>
         </li>
         <li>
           <a href="/addadmin">
-            <i className="bx bx-book-alt" />
+            <i className="bx bx-book-alt">
+              <AiOutlineUserAdd />
+            </i>
             <span className="links_name">Add Admin</span>
           </a>
         </li>
 
         <li className="log_out">
           <a onClick={handleLogout} href="/login">
-            <i className="bx bx-log-out" />
+            <i className="bx bx-log-out">
+              <BiLogOut />
+            </i>
             <span className="links_name">Log out</span>
           </a>
         </li>

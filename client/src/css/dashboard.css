@@ -92,6 +92,7 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: flex-start;
+  
   margin: 2rem 0;
   
 }
@@ -102,7 +103,7 @@
   border: 1px solid #a998ad;
   border-radius: 10px;
   overflow: hidden;
-  background-color: #42423d;
+  background-color: #213428;
   box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
   margin: 1rem;
   text-align: left;

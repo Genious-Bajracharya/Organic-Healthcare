@@ -2,7 +2,8 @@ import React from "react";
 import "../../css/adminnav.css";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
-import { AiOutlineBell } from "react-icons/ai";
+import { BiSearchAlt2 } from "react-icons/bi";
+
 
 function AdminNavbar() {
   const navigate = useNavigate();
@@ -19,7 +20,9 @@ function AdminNavbar() {
       </div>
       <div className="search-box">
         <input type="text" placeholder="Search..." />
-        <i className="bx bx-search" />
+        <i className="bx bx-search">
+          <BiSearchAlt2 />
+        </i>
       </div>
       <div className="profile-details">
         <span className="admin_name">Admin</span>

@@ -4,10 +4,13 @@ import Sidebar from "./adminside";
 import "../../css/stats.css";
 import AdminNavbar from "./adminNav";
 import { Link } from "react-router-dom";
+import { AiOutlineShoppingCart } from "react-icons/ai";
+import { AiOutlineUser } from "react-icons/ai";
+import { BsCartX } from "react-icons/bs";
+import { TbCurrencyRupeeNepalese } from "react-icons/tb";
 
 const Stats = () => {
-  const [data, setData] = useState([]);
-  const [users, setUsers] = useState([]);
+  const [money, setmoney] = useState([]);
   const [Totalusers, setTUsers] = useState([]);
   const [stock, setstock] = useState([]);
   const [order, setorder] = useState([]);
@@ -15,8 +18,9 @@ const Stats = () => {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const res = await axios.get("http://localhost:3001/users");
-        setUsers(res.data);
+        const res = await axios.get("http://localhost:3001/showusers");
+        setTUsers(res.data[0]["count(username)"]);
+        console.log(Totalusers);
       } catch (error) {
         console.error(error);
       }
@@ -27,9 +31,9 @@ const Stats = () => {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const res = await axios.get("http://localhost:3001/showusers");
-        setTUsers(res.data[0]["count(username)"]);
-        console.log(Totalusers);
+        const res = await axios.get("http://localhost:3001/money");
+        setmoney(res.data[0].count_total);
+        console.log(money);
       } catch (error) {
         console.error(error);
       }
@@ -70,22 +74,27 @@ const Stats = () => {
               <div className="right-side">
                 <div className="box-topic">Total Order</div>
                 <div className="number">{order}</div>
-                <div className="indicator">
-                  <i className="bx bx-up-arrow-alt" />
-                </div>
+                <div className="indicator"></div>
+                <i className="bx bx-up-arrow-alt" />
+                <span className="text">Order Detail</span>
               </div>
-              <i className="bx bx-cart-alt cart" />
+              <i className="bx bx-cart-alt cart">
+                <AiOutlineShoppingCart />
+              </i>
             </div>
+
             <div className="box">
               <div className="right-side">
                 <div className="box-topic">Total Sales</div>
-                <div className="number">38,876</div>
+                <div className="number">{money}</div>
                 <div className="indicator">
                   <i className="bx bx-up-arrow-alt" />
                   <span className="text">Up from yesterday</span>
                 </div>
               </div>
-              <i className="bx bxs-cart-add cart two" />
+              <i className="bx bxs-cart-add cart two">
+                <TbCurrencyRupeeNepalese />
+              </i>
             </div>
             <div className="box">
               <div className="right-side">
@@ -96,7 +105,9 @@ const Stats = () => {
                   <span className="text">Users Registered</span>
                 </div>
               </div>
-              <i className="bx bx-cart cart three" />
+              <i className="bx bx-cart cart three">
+                <AiOutlineUser />
+              </i>
             </div>
             <div className="box">
               <div className="right-side">
@@ -107,7 +118,9 @@ const Stats = () => {
                   <span className="text">Products out of stock</span>
                 </div>
               </div>
-              <i className="bx bxs-cart-download cart four" />
+              <i className="bx bxs-cart-download cart four">
+                <BsCartX />
+              </i>
             </div>
           </div>
         </div>

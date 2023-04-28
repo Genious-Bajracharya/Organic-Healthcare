@@ -592,6 +592,20 @@ app.get("/showstock", (req, res) => {
   });
 });
 
+app.get("/money", (req, res) => {
+  const query =
+    "SELECT SUM(total) AS count_total FROM (SELECT total_price * quantity AS total FROM orders) AS temp_table;";
+  con.query(query, ["admin"], (error, results) => {
+    if (error) {
+      console.error("Error fetching users: ", error.message);
+      res.sendStatus(500);
+    } else {
+      console.log(results);
+      res.json(results);
+    }
+  });
+});
+
 app.get("/showorder", (req, res) => {
   const query = "select count(DISTINCT created_at) from orders";
   con.query(query, ["admin"], (error, results) => {
@@ -606,6 +620,19 @@ app.get("/showorder", (req, res) => {
 
 app.get("/users", (req, res) => {
   const query = "SELECT * FROM users where role!=? ";
+  con.query(query, ["admin"], (error, results) => {
+    if (error) {
+      console.error("Error fetching users: ", error.message);
+      res.sendStatus(500);
+    } else {
+      res.json(results);
+    }
+  });
+});
+
+app.get("/recentsales", (req, res) => {
+  const query =
+    "select * from orders group by created_at order by created_at desc ;	 ";
   con.query(query, ["admin"], (error, results) => {
     if (error) {
       console.error("Error fetching users: ", error.message);

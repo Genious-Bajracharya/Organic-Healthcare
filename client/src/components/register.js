@@ -101,7 +101,7 @@ const Register = () => {
               <h1>Welcome To Organic Healthcare!</h1>
               <p>Enter your personal details </p>
               <button className="ghost" id="signUp">
-                <a className="ghost" href="/..">
+                <a className="ghost" href="/login">
                   Back to Login
                 </a>
               </button>

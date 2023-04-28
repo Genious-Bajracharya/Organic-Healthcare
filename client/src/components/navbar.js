@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import "../css/bar.css";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import { BiCart } from "react-icons/bi";
+import { BiCart, BiSearchAlt2 } from "react-icons/bi";
 import { CgProfile } from "react-icons/cg";
 
 const Navbar = () => {
@@ -45,7 +45,7 @@ const Navbar = () => {
         navigate("/login");
       });
   };
-
+  // <img src={process.env.PUBLIC_URL + `/images/organiclogo.png`} />
   return (
     <nav className="navbar">
       <div className="nav">
@@ -60,7 +60,7 @@ const Navbar = () => {
               onChange={(e) => setSearchTerm(e.target.value)}
             />
             <button className="search-btn" onClick={handleSearch}>
-              search
+              <BiSearchAlt2 size={24} />
             </button>
           </div>
 

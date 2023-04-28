@@ -103,9 +103,9 @@
   }
 
 .product-page button {
-	border-radius: 20px;
+	border-radius: 10px;
 	border: 1px solid #eae7ed;
-	background-color: #1e1a22;
+	background-color: #5b9985;
 	color: #FFFFFF;
 	font-size: 12px;
 	font-weight: bold;
@@ -113,8 +113,9 @@
 	letter-spacing: 1px;
 	text-transform: uppercase;
 	transition: transform 80ms ease-in;
-	margin-left:10px;
-	margin-top: 10px;
+	margin-left:1px;
+	margin-top: 15px;
+	width:fit-content;
 }
 
 .product-page button:hover {

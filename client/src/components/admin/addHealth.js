@@ -48,7 +48,6 @@ const AddHealth = () => {
     <div>
       <AdminNavbar />
       <Sidebar />
-      <Stats />
 
       <div className="main-content">
         <div className="form-style-6">
