@@ -100,7 +100,9 @@ const ProductDetail = () => {
               />
 
               <button onClick={() => handleUpdate()}>Update</button>
-              <button onClick={() => handleRemove()}>Remove</button>
+              <button className="remove" onClick={() => handleRemove()}>
+                Remove
+              </button>
             </div>
           </div>
         </div>

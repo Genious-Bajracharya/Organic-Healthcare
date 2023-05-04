@@ -37,20 +37,21 @@ const ProductDetail = () => {
     ///////////////////////////////////
     const productId = product.id;
     const username = localStorage.getItem("username");
-    try {
-      if (quantity > product.stock) {
-        alert("Quantity not in Stock");
-      } else {
+    if (quantity > product.stock) {
+      alert("Quantity not in Stock");
+    } else {
+      try {
         const res = await axios.post("http://localhost:3001/cart", {
           product,
           username,
           quantity,
         });
-        alert("Added successfully");
+        console.log(res.data.message);
+        alert(`Added to cart successfully`);
+      } catch (error) {
+        console.error(error);
+        alert("Product already added");
       }
-    } catch (error) {
-      console.error(error);
-      alert("Product already added");
     }
   };
 

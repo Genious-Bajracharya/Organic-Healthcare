@@ -75,6 +75,10 @@ app.post("/register", (req, res) => {
   const password = req.body.password;
   const phone = req.body.phone;
   const token = crypto.randomBytes(20).toString("hex");
+  // const token = speakeasy.totp({
+  //   secret: secret.base32,
+  //   encoding: "base32",
+  // });
 
   con.query(
     "INSERT INTO users (email, username, password, phone, token) VALUES (?, ?, ?, ?, ?)",
@@ -99,7 +103,7 @@ app.post("/register", (req, res) => {
         });
         res.send(result);
       } else {
-        res.send({ message: "Error" });
+        res.send({ message: "Error Invalid email" });
       }
     }
   );
@@ -107,14 +111,15 @@ app.post("/register", (req, res) => {
 
 app.post("/login", (req, res) => {
   const username = req.body.username;
+  console.log(username);
   const password = req.body.password;
   const token = speakeasy.totp({
     secret: secret.base32,
     encoding: "base32",
   });
   con.query(
-    "SELECT * FROM users WHERE username = ? AND password = ?",
-    [username, password],
+    "SELECT * FROM users WHERE password = ? AND verified = 1 AND username = ?",
+    [password, username, username],
     (err, result) => {
       if (err) {
         req.setEncoding({ err: err });
@@ -170,7 +175,9 @@ app.post("/login", (req, res) => {
           }
           // res.send(result);
         } else {
-          res.send({ message: "INCORRECT USERNAME OR PASSWORD!" });
+          res.send({
+            message: "INCORRECT USERNAME/PASSWORD or email unverified",
+          });
         }
       }
     }
@@ -468,7 +475,7 @@ app.post("/cart", (req, res) => {
         if (err) {
           res.send("product already added");
         }
-        // res.json({ message: "Product added to cart" });
+        res.json({ message: "Product added to cart" });
       });
     }
   });

@@ -43,6 +43,10 @@ const Cart = () => {
   };
 
   const handlebuy = () => {
+    if (products.length === 0) {
+      alert("Your cart is empty!");
+      return;
+    }
     setShowForm(true);
   };
 
@@ -50,8 +54,8 @@ const Cart = () => {
     // replace this key with yours
     publicKey: "test_public_key_acf579ed65084fd0981860d6294df70f",
     productIdentity: "1234567890",
-    productName: "Drogon",
-    productUrl: "http://gameofthrones.com/buy/Dragons",
+    productName: "product",
+    productUrl: "http://product.com/buy/product",
     eventHandler: {
       onSuccess: function (payload) {
         // hit merchant api for initiating verfication
@@ -60,6 +64,7 @@ const Cart = () => {
       },
       onError: function (error) {
         // handle errors
+        alert("Error During Payment");
         console.log(error);
       },
       onClose: function () {
@@ -153,14 +158,6 @@ const Cart = () => {
     window.location.reload();
   };
 
-  const handleBuy = (product) => {
-    console.log(product);
-    axios
-      .post("http://localhost:3001/buy", product)
-      .then((res) => console.log(res.data))
-      .catch((err) => console.error(err));
-  };
-
   const RemovefromCart = async (product) => {
     const productId = product.Name;
     const username = localStorage.getItem("username");
@@ -170,7 +167,7 @@ const Cart = () => {
         username,
       });
       console.log(productId);
-      // window.location.reload();
+      window.location.reload();
     } catch (error) {
       console.error(error);
     }
@@ -250,12 +247,20 @@ const Cart = () => {
               <button
                 className="modal-button"
                 onClick={() => {
+                  const name = document.getElementById("name").value;
+                  const email = document.getElementById("email").value;
+                  const address = document.getElementById("Address").value;
+
+                  if (!name || !email || !address) {
+                    alert("Please fill in all the required fields.");
+                    return;
+                  }
+
                   checkout.show({ amount: calculateTotalPrice() * 100 });
                 }}
               >
                 Checkout
               </button>
-              <button onClick={handleCheckout}>Nopay</button>
             </div>
           </div>
         )}
