@@ -335,7 +335,22 @@ app.get("/verify", (req, res) => {
   );
 });
 
-//Product
+app.get("/userorders", (req, res) => {
+  const { username } = req.query;
+  const query =
+    "SELECT DATE_FORMAT(created_at, '%Y-%m-%d %H:%i:%s') as created_at, status, product, username FROM orders WHERE username = ? GROUP BY created_at ORDER BY status DESC,created_at DESC;";
+  con.query(query, [username], (error, results) => {
+    if (error) {
+      console.error("Error fetching users: ", error.message);
+      res.sendStatus(500);
+    } else {
+      console.log(username);
+      res.json(results);
+    }
+  });
+});
+
+//Product/////////////////////////////////////////////////////////////////////////////////////////////////////////////
 app.get("/products", (req, res) => {
   const query = "SELECT * FROM products";
   con.query(query, (error, results) => {

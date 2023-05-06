@@ -93,6 +93,7 @@ const ProductDetail = () => {
                 onChange={(e) => setPrice(e.target.value)}
               />
               <input
+                className="desc"
                 type="text"
                 placeholder={`Description (${product.description})`}
                 required

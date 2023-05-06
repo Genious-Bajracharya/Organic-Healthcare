@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import axios from "axios";
 import "../css/productDes.css";
+import "../css/dashboard.css";
 import Navbar from "./navbar";
 
 const ProductDetail = () => {
   const { id } = useParams();
   const [product, setProduct] = useState({});
+  const [products, setProducts] = useState([]);
   const [quantity, setQuantity] = useState(1);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [stockStatus, setStockStatus] = useState("");
@@ -29,8 +31,17 @@ const ProductDetail = () => {
       });
   }, [id]);
 
+  useEffect(() => {
+    axios
+      .get("http://localhost:3001/products")
+      .then((response) => {
+        setProducts(response.data);
+      })
+      .catch((error) => {});
+  }, []);
+
   const handleAddToCart = async () => {
-    if (isLoggedIn == false) {
+    if (isLoggedIn === false) {
       alert("You need to log in to add products to your cart.");
       return;
     }
@@ -57,19 +68,6 @@ const ProductDetail = () => {
 
   const handleQuantityChange = (e) => {
     setQuantity(Number(e.target.value));
-  };
-
-  const handleBuy = async () => {
-    try {
-      await axios.post("http://localhost:3001/buy", {
-        username: localStorage.getItem("username"),
-        product_id: product.id,
-        price: product.price,
-      });
-      alert("Order placed successfully");
-    } catch (error) {
-      console.error(error);
-    }
   };
 
   return (
@@ -106,6 +104,25 @@ const ProductDetail = () => {
             <button onClick={() => handleAddToCart()}>Add to Cart</button>
           </div>
         </div>
+      </div>
+      <div className="new">
+        <h2>More Products </h2>
+      </div>
+
+      <div className="products-container">
+        {products
+          .sort(() => Math.random() - 0.5)
+          .slice(0, 5)
+          .map((pro) => (
+            <Link to={`/product/${pro.id}`}>
+              <div className="product-card" key={pro.id}>
+                <img src={`data:image/jpeg;base64,${pro.pic}`} alt={pro.Name} />
+
+                <h3>{pro.Name}</h3>
+                <p>RS. {pro.price}</p>
+              </div>
+            </Link>
+          ))}
       </div>
     </div>
   );

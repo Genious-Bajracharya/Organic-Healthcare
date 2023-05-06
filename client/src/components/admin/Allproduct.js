@@ -85,59 +85,58 @@ const HomePage = () => {
         <div className="new">
           <h2>Herbs</h2>
         </div>
-        <div className="products-section">
-          <div className="products-container">
-            {productsherb.map((product) => (
-              <Link to={`/updateproduct/${product.id}`}>
-                <div className="product-card" key={product.id}>
-                  <img
-                    src={`data:image/jpeg;base64,${product.pic}`}
-                    alt={product.Name}
-                  />
-                  <h3>{product.Name}</h3>
-                  <p>RS {product.price}</p>
-                </div>
-              </Link>
-            ))}
-          </div>
+
+        <div className="products-container">
+          {productsherb.map((product) => (
+            <Link to={`/updateproduct/${product.id}`}>
+              <div className="product-card" key={product.id}>
+                <img
+                  src={`data:image/jpeg;base64,${product.pic}`}
+                  alt={product.Name}
+                />
+                <h3>{product.Name}</h3>
+                <p>RS {product.price}</p>
+              </div>
+            </Link>
+          ))}
         </div>
+
         <div className="new">
           <h2>Fruits</h2>
         </div>
-        <div className="products-section">
-          <div className="products-container">
-            {productsfruit.map((product) => (
-              <Link to={`/updateproduct/${product.id}`}>
-                <div className="product-card" key={product.id}>
-                  <img
-                    src={`data:image/jpeg;base64,${product.pic}`}
-                    alt={product.Name}
-                  />
-                  <h3>{product.Name}</h3>
-                  <p>RS {product.price}</p>
-                </div>
-              </Link>
-            ))}
-          </div>
+
+        <div className="products-container">
+          {productsfruit.map((product) => (
+            <Link to={`/updateproduct/${product.id}`}>
+              <div className="product-card" key={product.id}>
+                <img
+                  src={`data:image/jpeg;base64,${product.pic}`}
+                  alt={product.Name}
+                />
+                <h3>{product.Name}</h3>
+                <p>RS {product.price}</p>
+              </div>
+            </Link>
+          ))}
         </div>
+
         <div className="new">
           <h2>Vegetable</h2>
         </div>
-        <div className="products-section">
-          <div className="products-container">
-            {productsveg.map((product) => (
-              <Link to={`/updateproduct/${product.id}`}>
-                <div className="product-card" key={product.id}>
-                  <img
-                    src={`data:image/jpeg;base64,${product.pic}`}
-                    alt={product.Name}
-                  />
-                  <h3>{product.Name}</h3>
-                  <p>RS {product.price}</p>
-                </div>
-              </Link>
-            ))}
-          </div>
+
+        <div className="products-container">
+          {productsveg.map((product) => (
+            <Link to={`/updateproduct/${product.id}`}>
+              <div className="product-card" key={product.id}>
+                <img
+                  src={`data:image/jpeg;base64,${product.pic}`}
+                  alt={product.Name}
+                />
+                <h3>{product.Name}</h3>
+                <p>RS {product.price}</p>
+              </div>
+            </Link>
+          ))}
         </div>
       </div>
     </div>

@@ -10,6 +10,7 @@ const Search = () => {
   const { id } = useParams();
   const [product, setProduct] = useState([]);
   const [products, setProducts] = useState([]);
+  const [prod, setProd] = useState([]);
   const navigate = useNavigate();
   const [searchTerm, setSearchTerm] = useState("");
   const [error, setError] = useState(null);
@@ -30,6 +31,15 @@ const Search = () => {
       });
   }, [id]);
 
+  useEffect(() => {
+    axios
+      .get("http://localhost:3001/products")
+      .then((response) => {
+        setProd(response.data);
+      })
+      .catch((error) => {});
+  }, []);
+
   return (
     <div>
       <Navbar />
@@ -38,21 +48,44 @@ const Search = () => {
           <h2>Search Results...</h2>
         </div>
         <div className="products-section">
-          <div className="products-container">
-            {products.map((product) => (
-              <Link to={`/product/${product.id}`}>
-                <div className="product-card" key={product.id}>
-                  <img
-                    src={`data:image/jpeg;base64,${product.pic}`}
-                    alt={product.Name}
-                  />
-                  <h3>{product.Name}</h3>
-                  <p>RS {product.price}</p>
-                </div>
-              </Link>
-            ))}
-          </div>
+          {products.length > 0 ? (
+            <div className="products-container">
+              {products.map((product) => (
+                <Link to={`/product/${product.id}`} key={product.id}>
+                  <div className="product-card">
+                    <img
+                      src={`data:image/jpeg;base64,${product.pic}`}
+                      alt={product.Name}
+                    />
+                    <h3>{product.Name}</h3>
+                    <p>RS {product.price}</p>
+                  </div>
+                </Link>
+              ))}
+            </div>
+          ) : (
+            <div className="no-results">No results found.</div>
+          )}
         </div>
+      </div>
+      <div className="new">
+        <h2>More Products </h2>
+      </div>
+
+      <div className="products-container">
+        {prod
+          .sort(() => Math.random() - 0.5)
+          .slice(0, 5)
+          .map((pro) => (
+            <Link to={`/product/${pro.id}`}>
+              <div className="product-card" key={pro.id}>
+                <img src={`data:image/jpeg;base64,${pro.pic}`} alt={pro.Name} />
+
+                <h3>{pro.Name}</h3>
+                <p>RS. {pro.price}</p>
+              </div>
+            </Link>
+          ))}
       </div>
     </div>
   );

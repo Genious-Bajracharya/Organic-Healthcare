@@ -42,7 +42,7 @@ const Login = () => {
   };
 
   return (
-    <div>
+    <div className="login">
       <div className="container" id="container">
         <div className="form-container sign-in-container">
           <form onSubmit={Auth} method="post">

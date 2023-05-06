@@ -142,24 +142,27 @@ const HomePage = () => {
           />
         </section>
         <div className="new">
-          <h2>New Products</h2>
+          <h2>Products</h2>
         </div>
 
         <div className="products-section">
           <div className="products-container">
-            {products.slice(0, 4).map((product) => (
-              <Link to={`/product/${product.id}`}>
-                <div className="product-card" key={product.id}>
-                  <img
-                    src={`data:image/jpeg;base64,${product.pic}`}
-                    alt={product.Name}
-                  />
+            {products
+              .sort(() => Math.random() - 0.5)
+              .slice(0, 4)
+              .map((product) => (
+                <Link to={`/product/${product.id}`}>
+                  <div className="product-card" key={product.id}>
+                    <img
+                      src={`data:image/jpeg;base64,${product.pic}`}
+                      alt={product.Name}
+                    />
 
-                  <h3>{product.Name}</h3>
-                  <p>RS. {product.price}</p>
-                </div>
-              </Link>
-            ))}
+                    <h3>{product.Name}</h3>
+                    <p>RS. {product.price}</p>
+                  </div>
+                </Link>
+              ))}
           </div>
         </div>
         <div className="new">
